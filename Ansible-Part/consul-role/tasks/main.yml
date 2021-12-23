@@ -1,0 +1,11 @@
+---
+# tasks file for consul-role
+- name: Play needed tasks in order
+  include_tasks: "{{ item }}"
+  loop:
+    - users.yml
+    - dnsmasq.yml
+    - consul_main.yml
+
+
+

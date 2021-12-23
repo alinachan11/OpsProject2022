@@ -1,0 +1,18 @@
+{
+    "service": {
+        "name": "{{ item.name }}",
+        {% if item.id is defined -%}
+        "id": "{{ item.id }}",
+        {% endif -%}
+        {% if item.port is defined -%}
+        "port": {{ item.port }},
+        {% endif -%}
+        {% if item.meta is defined -%}
+        "meta": {{ item.meta | to_json(sort_keys=True) }},
+        {% endif -%}
+        {% if item.checks is defined -%}
+        "checks": {{ item.checks | to_json(sort_keys=True) }},
+        {% endif -%}
+        "tags": {{ item.tags|default([])|to_json(sort_keys=True) }}
+    }
+}

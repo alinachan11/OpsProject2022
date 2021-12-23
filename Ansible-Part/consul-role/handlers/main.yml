@@ -1,0 +1,23 @@
+---
+# handlers file for consul-role
+
+- name: restart dnsmsystemd-resolved.service
+  service:
+    name: systemd-resolved
+    state: restarted
+
+- name: restart consul
+  service:
+    name: consul
+    state: restarted
+    enabled : yes
+
+- name: reload systemd
+  become: yes
+  command: systemctl daemon-reload
+
+- name: restart dnsmasq
+  service: 
+    name : dnsmasq 
+    state : restarted
+    enabled : yes

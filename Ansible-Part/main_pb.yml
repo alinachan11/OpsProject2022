@@ -1,0 +1,32 @@
+- name: consul server
+  hosts: _server
+  remote_user: ubuntu
+  become: yes
+  vars:
+    - server: true
+  tasks:
+   - name: consul role - for server
+     include_role:
+       name: consul-role
+
+- name: consul client
+  hosts: _client
+  remote_user: ubuntu
+  become: yes
+  vars:
+    - server: false
+  tasks:
+   - name: consul role - for client
+     include_role:
+       name: consul-role
+
+- name: consul users
+  hosts: _ubuntu
+  remote_user: ubuntu
+  become: yes
+  tasks:
+   - name: restart consul
+     service:
+      name: consul
+      state: restarted
+      enabled : yes
