@@ -1,7 +1,7 @@
 
 
 locals {
-  server-userdata = <<USERDATA
+  ansible-server-userdata = <<USERDATA
 #!/bin/bash 
 
 echo "inside the user data"
@@ -26,7 +26,7 @@ ansible-playbook main_pb.yml
 echo "end of user data - server"
 USERDATA
 
-client-userdata = <<USERDATA
+ansible-client-userdata = <<USERDATA
 #!/bin/bash 
 chmod 600 /home/ubuntu/${local_file.ansible_key.filename}
 mv /home/ubuntu/${local_file.ansible_key.filename} /home/ubuntu/.ssh/
