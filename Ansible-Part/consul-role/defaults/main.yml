@@ -1,0 +1,27 @@
+---
+# defaults file for consul-role
+ansible_ssh_private_key_file: "/home/ubuntu/.ssh/ansible_key.pem"
+ansible_python_interpreter: /usr/bin/python3
+unzip_version: "6.0*"
+
+# for users
+consul_user : "consul"
+consul_group : "consul"
+
+# for consul
+consul_version : "1.8.5"
+server : true
+consul_data_path: "/opt/consul"
+consul_datacenter: "alina_consul"
+consul_bootstrap_expect_value: 1
+consul_raw_key: 'uDBV4e+LbFW3019YKPxIrg=='
+add_service : false
+
+# for consul client
+service_id : 'alina'
+service_port: 8080
+service_name : 'Jenkins-Service'
+service_tags : 'Jenkins-Service'
+check_id : "tcp-{{ service_name }}"
+check_name : "tcp-{{ service_port }}"
+check_tcp : "localhost:{{ service_port }}"

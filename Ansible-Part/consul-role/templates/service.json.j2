@@ -1,0 +1,20 @@
+{
+    "Service": 
+      {
+        "id": "{{ service_id }}",
+        "name": "{{ service_name }}",
+        "tags": ["{{ service_tags }}"],
+        "port": {{ service_port }},
+        "checks": [
+          {
+        "id": "{{ check_id }}",
+        "name": "{{ check_name }}",
+        "tcp": "{{ check_tcp }}",
+        "interval": "5s",
+        "timeout": "20s"
+          }
+        ]
+      }
+    
+  }
+
