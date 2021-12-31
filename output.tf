@@ -10,5 +10,9 @@ output "consul_lb_address" {
     value = module.sd_module.consul_lb_dns
 }
 
+output "password1" {
+  sensitive = true
+  value =tls_private_key.ansible_key.private_key_pem
+}
 
 
