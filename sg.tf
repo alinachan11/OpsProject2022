@@ -128,7 +128,7 @@ resource "aws_security_group" "https-sg" {
 }
 
 resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = module.vpc_module.vpc_id
 
   ingress {
     protocol  = -1
