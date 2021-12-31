@@ -1,5 +1,6 @@
 
-################### for ansible server #################################################
+##################################### for ansible server ######################################
+
 resource "aws_iam_role" "ansible_role" {
   name               = "ansible_role"
   assume_role_policy  = "${file("policies/assumerolepolicy.json")}"
@@ -21,18 +22,17 @@ resource "aws_iam_policy_attachment" "aws-ansible" {
   roles      = ["${aws_iam_role.ansible_role.name}"]
   policy_arn = "${aws_iam_policy.full_ec2_access_policy.arn}"
 }
-
-######################### for consul servers ##########################################
+################################### Consul join policy #####################################
 resource "aws_iam_role" "consul-join" {
   name               = "opsschool-consul-join"
-  assume_role_policy = file("${path.module}/policies/assumerolepolicy.json")
+  assume_role_policy = "${file("policies/assumerolepolicy.json")}"
 }
 
 # Create the policy
 resource "aws_iam_policy" "consul-join" {
   name        = "opsschool-consul-join"
   description = "Allows Consul nodes to describe instances for joining."
-  policy      = file("${path.module}/policies/describe-instances.json")
+  policy      = "${file("policies/describe-instances.json")}"
 }
 
 # Attach the policy

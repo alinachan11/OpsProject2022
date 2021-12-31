@@ -9,16 +9,24 @@
      include_role:
        name: consul-role
 
-- name: consul client
-  hosts: _client
+- name: consul client - jenkins
+  hosts: _jenkins
   remote_user: ubuntu
   become: yes
   vars:
     - server: false
+    - service_port: 8080
+    - service_name : 'Jenkins-Service'
+    - service_tags : 'Jenkins-Service'
+    - check_id : "tcp-{{ service_name }}"
+    - check_name : "tcp-{{ service_port }}"
+    - check_tcp : "localhost:{{ service_port }}"
+    - add_service : true
   tasks:
    - name: consul role - for client
      include_role:
        name: consul-role
+  
 
 - name: consul users
   hosts: _ubuntu
