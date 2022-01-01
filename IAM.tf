@@ -58,7 +58,7 @@ resource "aws_iam_policy" "S3_access" {
 
 resource "aws_iam_instance_profile" "bucket_access" {
   name = "s3_access_profile"
-  role = aws_iam_role.bucket_role.name
+  role = aws_iam_role.ansible_role.name
 }
 
 resource "aws_iam_policy_attachment" "S3_access" {
