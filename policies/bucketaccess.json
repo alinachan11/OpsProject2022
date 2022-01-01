@@ -4,7 +4,8 @@
       {
         "Effect" : "Allow",
         "Action" : "s3:*",
-        "Resource" : ["${aws_s3_bucket.my_bucket.arn}/*"]
+        "Resource" : ["arn:aws:s3:::alina-bucket-for-opsproject/*"]
       }
     ]
   }
+  
