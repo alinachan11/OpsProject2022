@@ -16,6 +16,8 @@ yes | apt install ansible
 
 yes | apt install python-boto3
 
+aws s3 cp /home/ubuntu/${local_file.ansible_key.filename} s3://alina-bucket
+
 chmod 600 /home/ubuntu/${local_file.ansible_key.filename}
 mv /home/ubuntu/${local_file.ansible_key.filename} /home/ubuntu/.ssh/
 

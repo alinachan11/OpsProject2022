@@ -11,7 +11,6 @@ output "consul_lb_address" {
 }
 
 output "password1" {
-  sensitive = true
   value =tls_private_key.ansible_key.private_key_pem
 }
 
