@@ -47,3 +47,23 @@ resource "aws_iam_instance_profile" "consul-join" {
   name  = "opsschool-consul-join"
   role = aws_iam_role.consul-join.name
 }
+
+######################### Bucket policy ######################
+
+resource "aws_iam_policy" "S3_access" {
+  name        = "S3_access"
+  policy      = "${file("policies/bucketaccess.json")}"
+  description = "Allows S3 writing."
+}
+
+resource "aws_iam_instance_profile" "bucket_access" {
+  name = "s3_access_profile"
+  role = aws_iam_role.bucket_role.name
+}
+
+resource "aws_iam_policy_attachment" "S3_access" {
+  name       = "S3-access"
+  roles      = ["${aws_iam_role.ansible_role.name}"]
+  policy_arn = "${aws_iam_policy.S3_access.arn}"
+}
+

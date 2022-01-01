@@ -6,7 +6,8 @@ resource "aws_instance" "ansible_server" {
   associate_public_ip_address = true
   subnet_id = module.vpc_module.public_subnets_id[0]
   vpc_security_group_ids = [aws_security_group.ssh-sg.id, aws_default_security_group.default.id]
-  key_name               = aws_key_pair.ansible_key.key_name
+  #key_name               = aws_key_pair.ansible_key.key_name
+  key_name = ansible_test_key
   iam_instance_profile = "${aws_iam_instance_profile.assume_role_profile.name}"
   user_data = local.ansible-server-userdata
   tags = {
