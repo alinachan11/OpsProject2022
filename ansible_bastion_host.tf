@@ -21,6 +21,16 @@ resource "aws_instance" "ansible_server" {
       user        = "ubuntu"
       private_key = file(local_file.ansible_key.filename)      
     }   
+
+     provisioner "file" {
+    content     = module.EKS_Module.config_map_aws_auth
+    destination = "/tmp/kubeconfig_opsSchool-eks"
+     connection {   
+      host        = self.public_ip
+      user        = "ubuntu"
+      private_key = file(local_file.ansible_key.filename)      
+    }  
+  }
   }
 
   provisioner "file" {

@@ -30,6 +30,7 @@ mv /home/ubuntu/${local_file.ansible_key.filename} /home/ubuntu/.ssh/
 cd /home/ubuntu/Ansible-Part
 sleep 30s
 ansible-playbook main_pb.yml
+ansible-playbook jenkins_nodes_pb.yml
 
 echo "end of user data - server"
 USERDATA
