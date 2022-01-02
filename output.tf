@@ -11,7 +11,7 @@ output "consul_lb_address" {
 }
 
 ################# EKS Output ###########################
-/*
+
 output "cluster_name" {
     value = module.EKS_Module.cluster_name
 }
@@ -34,4 +34,3 @@ output "cluster_region" {
     value = module.EKS_Module.region
 }
 
-*/
