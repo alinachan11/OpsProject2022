@@ -8,7 +8,7 @@ module "vpc_module" {
 
 module "jenkins_module" {
   source                    = "app.terraform.io/alina-ops/Jenkins-Module/alinaops"
-  version = "1.0.0"
+  version = "1.0.1"
   vpc_id = module.vpc_module.vpc_id
   subnets_id_private = module.vpc_module.private_subnets_id
   subnets_id_public = module.vpc_module.public_subnets_id
@@ -28,4 +28,15 @@ module "sd_module" {
   bh_public_ip = aws_instance.ansible_server[0].public_ip
   for_testing_ip = true
   security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id]
+}
+
+
+module "EKS_Module" {
+  source                    = "app.terraform.io/alina-ops/my-EKS-Module/alinaops"
+  version = "1.0.0"
+  vpc_id = module.vpc_module.vpc_id
+  subnets_id_private = module.vpc_module.private_subnets_id
+  subnets_id_public = module.vpc_module.public_subnets_id
+  map_roles = [aws_iam_role.eks-control.arn]
+  map_users = jenkins_module.jenkins_nodes_arn
 }
