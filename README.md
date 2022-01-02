@@ -6,7 +6,7 @@ ops school project using: ansible, terraform, aws, consul, jenkins, eks(k8s) and
 VPC module: [a link](https://github.com/alinachan11/terraform-alinaops-my-vpc-module/blob/main/README.md)  <br />
 Jenkins module: [a link](https://github.com/alinachan11/terraform-alinaops-Jenkins-Module/blob/main/README.md)  <br />
 Consul module: [a link](https://github.com/alinachan11/terraform-alinaops-SD-Module/blob/main/README.md)  <br />
-EKS module: 
+EKS module:  [a link](https://github.com/alinachan11/terraform-alinaops-my-EKS-Module/blob/main/README.md) <br />
 
 
 # Output:
