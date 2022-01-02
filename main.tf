@@ -37,6 +37,6 @@ module "EKS_Module" {
   vpc_id = module.vpc_module.vpc_id
   subnets_id_private = module.vpc_module.private_subnets_id
   subnets_id_public = module.vpc_module.public_subnets_id
-  map_roles = [aws_iam_role.eks-control.arn]
-  map_users = module.jenkins_module.jenkins_nodes_arn
+  #map_roles = [aws_iam_role.eks-control.arn]
+  #map_users = module.jenkins_module.jenkins_nodes_arn
 }
