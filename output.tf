@@ -33,4 +33,7 @@ output "cluster_id" {
 output "cluster_region" {
     value = module.EKS_Module.region
 }
+output "kubeconfig" {
+    value = module.EKS_Module.kubeconfig
+}
 
