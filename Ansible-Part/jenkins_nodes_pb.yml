@@ -27,10 +27,10 @@
       creates: /usr/bin/aws
     when: aws_cli_unarchive_installer.changed
 
-  - name: Copy kubeconfig to node
-    copy:
-      src: /tmp/kubeconfig_opsSchool-eks
-      dest: /home/ec2-user/kubeconfig_opsSchool-eks
-      mode: 0755
-    with_fileglob:
-      - ../terraform/global/VPC/kubeconfig_*
+ # - name: Copy kubeconfig to node
+ #   copy:
+ #     src: /tmp/kubeconfig_opsSchool-eks
+ #     dest: /home/ec2-user/kubeconfig_opsSchool-eks
+ #     mode: 0755
+ #   with_fileglob:
+ #     - ../terraform/global/VPC/kubeconfig_*
