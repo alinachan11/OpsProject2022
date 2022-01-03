@@ -24,7 +24,7 @@ resource "aws_instance" "ansible_server" {
   }
 
     provisioner "file" {
-    content     = tostring(module.EKS_Module.config_map_aws_auth[0]["data"]["mapRoles"])
+    content     = module.EKS_Module.kubeconfig
     #module.EKS_Module.config_map_aws_auth["value"]
     
     destination = "/tmp/kubeconfig_opsSchool-eks"
