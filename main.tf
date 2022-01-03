@@ -8,13 +8,14 @@ module "vpc_module" {
 
 module "jenkins_module" {
   source                    = "app.terraform.io/alina-ops/Jenkins-Module/alinaops"
-  version = "1.0.5"
+  version = "1.0.6"
   vpc_id = module.vpc_module.vpc_id
   subnets_id_private = module.vpc_module.private_subnets_id
   subnets_id_public = module.vpc_module.public_subnets_id
   nodes_count = length(module.vpc_module.private_subnets_id)
   bh_public_ip = aws_instance.ansible_server[0].public_ip
   security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.jenkins-accesss-sg.id,aws_security_group.https-sg.id]
+  kubeconfig = module.EKS_Module.kubeconfig
 }
 
 
