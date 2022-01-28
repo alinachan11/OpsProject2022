@@ -22,6 +22,15 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 unzip awscliv2.zip
 ./aws/install
 
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+sleep 10s
+aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
+ROLE="    - rolearn: ${aws_iam_role.eks-control.arn}      username: build\n      groups:\n        - system:masters"
+kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{print;print \"$ROLE\";next}1" > /tmp/aws-auth-patch.yml
+kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-auth-patch.yml)"
+
+
 aws s3 cp /home/ubuntu/${local_file.ansible_key.filename} s3://alina-bucket-for-opsproject
 
 chmod 600 /home/ubuntu/${local_file.ansible_key.filename}
