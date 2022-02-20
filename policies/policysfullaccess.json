@@ -2,13 +2,18 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Action": ["ec2:*","eks:*"],
+            "Action": "ec2:*",
             "Effect": "Allow",
             "Resource": "*"
         },
         {
             "Effect": "Allow",
             "Action": "elasticloadbalancing:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "eks:*",
             "Resource": "*"
         },
         {
