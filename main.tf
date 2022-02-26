@@ -16,6 +16,7 @@ module "jenkins_module" {
   bh_public_ip = aws_instance.ansible_server[0].public_ip
   security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.jenkins-accesss-sg.id,aws_security_group.https-sg.id]
   kubeconfig = module.EKS_Module.kubeconfig
+  eks_control_profile_name = "${aws_iam_instance_profile.assume_role_profile.name}"
 }
 
 
