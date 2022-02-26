@@ -68,10 +68,10 @@ resource "aws_iam_policy_attachment" "S3_access" {
 }
 
 ######################3# EKS full access #################
-resource "aws_iam_role" "eks-control" {
-  name               = "eks-control"
-  assume_role_policy = "${file("policies/assumerolepolicy.json")}"
-}
+#resource "aws_iam_role" "eks-control" {
+#  name               = "eks-control"
+#  assume_role_policy = "${file("policies/assumerolepolicy.json")}"
+#}
 
 # Create the policy
 resource "aws_iam_policy" "eks-control" {
@@ -83,13 +83,13 @@ resource "aws_iam_policy" "eks-control" {
 # Attach the policy
 resource "aws_iam_policy_attachment" "eks-control" {
   name       = "eks-control"
-  roles      = [aws_iam_role.eks-control.name]
+  roles      = [aws_iam_role.ansible_role.name]
   policy_arn = aws_iam_policy.eks-control.arn
 }
 
 # Create the instance profile
 resource "aws_iam_instance_profile" "eks-control" {
   name  = "eks-control"
-  role = aws_iam_role.eks-control.name
+  role = aws_iam_role.ansible_role.name
 }
 
