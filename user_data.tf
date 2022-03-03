@@ -31,7 +31,7 @@ kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{prin
 kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-auth-patch.yml)"
 
 
-aws s3 cp /home/ubuntu/${local_file.ansible_key.filename} s3://alina-bucket-for-opsproject
+
 
 chmod 600 /home/ubuntu/${local_file.ansible_key.filename}
 mv /home/ubuntu/${local_file.ansible_key.filename} /home/ubuntu/.ssh/
@@ -41,15 +41,46 @@ sleep 30s
 ansible-playbook main_pb.yml
 ansible-playbook jenkins_nodes_pb.yml
 
-echo "end of user data - server"
+cd /home/ubuntu
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
+
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+helm repo add hashicorp https://helm.releases.hashicorp.com
+helm repo update
+
+helm install -f Helm-Part/prom_values.yml myprom prometheus-community/prometheus
+helm install -f Helm-Part/grafana_values.yml mygrafana grafana/grafana
+helm install -f Helm-Part/consul_values.yml myconsul hashicorp/consul --set global.name=consul --create-namespace -n consul 
+
+alias k=kubectl
+alias hd='helm delete'
+alias hl='helm list'
+alias kgp='k get pods'
+alias kgs='k get service'
+
+echo "end of user data - ansible server"
 USERDATA
 
-ansible-client-userdata = <<USERDATA
+bastion-host-userdata = <<USERDATA
 #!/bin/bash 
+
+aws s3 cp /home/ubuntu/${local_file.ansible_key.filename} s3://alina-bucket-for-opsproject
+
 chmod 600 /home/ubuntu/${local_file.ansible_key.filename}
 mv /home/ubuntu/${local_file.ansible_key.filename} /home/ubuntu/.ssh/
 
-echo "end of user data - client"
+
+echo "end of user data - bastion host"
 USERDATA
 
 }
