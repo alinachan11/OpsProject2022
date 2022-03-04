@@ -22,7 +22,7 @@ resource "aws_instance" "ansible_server" {
       user        = "ubuntu"
       private_key = file(local_file.ansible_key.filename) 
 
-      bastion_host = aws_instance.bastion_server[0].public_ip
+      bastion_host = aws_instance.bastion_server.public_ip
       bastion_user = "ubuntu"
       bastion_private_key = file(var.keypath)          
     }   
