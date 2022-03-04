@@ -1,3 +1,7 @@
+output "bastion_host_public_address" {
+    value = aws_instance.bastion_server.public_ip
+}
+
 output "ansible_server_public_address" {
     value = aws_instance.ansible_server.*.public_ip
 }
