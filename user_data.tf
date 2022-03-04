@@ -74,6 +74,10 @@ USERDATA
 bastion-host-userdata = <<USERDATA
 #!/bin/bash 
 
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+./aws/install
+
 aws s3 cp /home/ubuntu/${local_file.ansible_key.filename} s3://alina-bucket-for-opsproject
 
 chmod 600 /home/ubuntu/${local_file.ansible_key.filename}
