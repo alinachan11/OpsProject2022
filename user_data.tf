@@ -74,6 +74,9 @@ USERDATA
 bastion-host-userdata = <<USERDATA
 #!/bin/bash 
 
+apt update
+yes | apt-get install zip
+
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 ./aws/install
