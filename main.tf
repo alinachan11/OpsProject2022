@@ -8,7 +8,7 @@ module "vpc_module" {
 
 module "jenkins_module" {
   source                    = "app.terraform.io/alina-ops/Jenkins-Module/alinaops"
-  version = "1.0.6"
+  version = "1.0.7"
   vpc_id = module.vpc_module.vpc_id
   subnets_id_private = module.vpc_module.private_subnets_id
   subnets_id_public = module.vpc_module.public_subnets_id
@@ -35,7 +35,7 @@ module "sd_module" {
 
 module "EKS_Module" {
   source                    = "app.terraform.io/alina-ops/my-EKS-Module/alinaops"
-  version = "1.0.96"
+  version = "1.1.1"
   vpc_id = module.vpc_module.vpc_id
   subnets_id_private = module.vpc_module.private_subnets_id
   subnets_id_public = module.vpc_module.public_subnets_id

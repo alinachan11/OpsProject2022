@@ -58,15 +58,11 @@ helm repo update
 helm repo add hashicorp https://helm.releases.hashicorp.com
 helm repo update
 
-helm install -f Helm-Part/prom_values.yml myprom prometheus-community/prometheus
-helm install -f Helm-Part/grafana_values.yml mygrafana grafana/grafana
-helm install -f Helm-Part/consul_values.yml myconsul hashicorp/consul --set global.name=consul --create-namespace -n consul 
+sudo helm install -f Helm-Part/prom_values.yml myprom prometheus-community/prometheus
+sudo helm install -f Helm-Part/grafana_values.yml mygrafana grafana/grafana
+sudo helm install -f Helm-Part/consul_values.yml myconsul hashicorp/consul --set global.name=consul --create-namespace -n consul 
 
-alias k=kubectl
-alias hd='helm delete'
-alias hl='helm list'
-alias kgp='k get pods'
-alias kgs='k get service'
+
 
 echo "end of user data - ansible server"
 USERDATA
