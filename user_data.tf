@@ -31,11 +31,10 @@ kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{prin
 kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-auth-patch.yml)"
 
 
-
-
 chmod 600 /home/ubuntu/${local_file.ansible_key.filename}
 mv /home/ubuntu/${local_file.ansible_key.filename} /home/ubuntu/.ssh/
 
+ansible-galaxy collection install kubernetes.core
 cd /home/ubuntu/Ansible-Part
 sleep 30s
 ansible-playbook main_pb.yml
@@ -49,18 +48,6 @@ chmod 700 get_helm.sh
 
 aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
 
-helm repo add grafana https://grafana.github.io/helm-charts
-helm repo update
-
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update
-
-helm repo add hashicorp https://helm.releases.hashicorp.com
-helm repo update
-
-sudo helm install -f Helm-Part/prom_values.yml myprom prometheus-community/prometheus
-sudo helm install -f Helm-Part/grafana_values.yml mygrafana grafana/grafana
-sudo helm install -f Helm-Part/consul_values.yml myconsul hashicorp/consul --set global.name=consul --create-namespace -n consul 
 
 
 

@@ -22,7 +22,7 @@ global:
   # Set the prefix used for all resources in the Helm chart. If not set,
   # the prefix will be `<helm release name>-consul`.
   # @type: string
-  name: null
+  name: consul
 
   # The domain Consul will answer DNS queries for
   # (see `-domain` (https://consul.io/docs/agent/options#_domain)) and the domain services synced from
