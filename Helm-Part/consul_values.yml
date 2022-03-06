@@ -264,10 +264,10 @@ global:
     autoGenerate: false
     # secretName is the name of the Kubernetes secret or Vault secret path that holds the gossip
     # encryption key. A Kubernetes secret must be in the same namespace that Consul is installed into.
-    secretName: ""
+    secretName: "consul-gossip-encryption-key"
     # secretKey is the key within the Kubernetes secret or Vault secret key that holds the gossip
     # encryption key.
-    secretKey: ""
+    secretKey: "key"
 
   # A list of addresses of upstream DNS servers that are used to recursively resolve DNS queries.
   # These values are given as `-recursor` flags to Consul servers and clients.
