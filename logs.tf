@@ -22,13 +22,6 @@ module "ec2-instance" {
 }
 
 ################################################################################################
-data "aws_vpc" "default" {
-  default = true
-}
-# get subnet ids
-data "aws_subnet_ids" "subnets" {
-  vpc_id = data.aws_vpc.default.id
-}
 # get latest ubuntu 18 ami
 data "aws_ami" "ami" {
   owners      = ["099720109477"] # canonical
