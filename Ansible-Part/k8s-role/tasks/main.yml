@@ -1,0 +1,23 @@
+---
+- name: connect to k8s
+  shell: aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
+
+- name: Create a monitoring namespace
+  kubernetes.core.k8s:
+    name: "{{ monitoring_namespcae }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+
+# tasks file for consul-role
+- name: create and deploy all needed helm charts
+  include_tasks: "{{ item }}"
+  loop:
+    - consul_main.yml
+    - prom_main.yml
+    - grafana_main.yml
+    - filebeat_main.yml
+
+
+
+

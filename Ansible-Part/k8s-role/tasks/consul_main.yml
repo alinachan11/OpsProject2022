@@ -1,0 +1,33 @@
+---
+- name: Create a consul namespace
+  kubernetes.core.k8s:
+    name: "{{ consul_namespcae }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: make consul gossip key secret
+  kubernetes.core.k8s:
+    name: testing
+    api_version: v1
+    kind: Secret
+    type: Opaque
+    state: present
+    metadata:
+      name: "{{ consul_gossip_name }}"
+      namespace: "{{ consul_namespcae }}"
+    data:
+      key: "{{ gossip }}"
+
+- name: Add consul helm repo
+  kubernetes.core.helm_repository:
+    name: "{{ my_consul_name }}"
+    repo_url: "{{ consul_helm_chart_url }}"
+
+- name: Deploy consul chart using values files on target
+  kubernetes.core.helm:
+    name: "{{ my_consul_name }}"
+    chart_ref: "{{ consul_chart_name }}"
+    release_namespace: "{{ consul_namespcae }}"
+    values_files:
+      - "{{ consul_values_path }}"
