@@ -1,0 +1,13 @@
+---
+- name: Add prometheus helm repo
+  kubernetes.core.helm_repository:
+    name: "{{ my_prom_name }}"
+    repo_url: "{{ prom_helm_chart_url }}"
+
+- name: Deploy prometheus chart using values files on target
+  kubernetes.core.helm:
+    name: "{{ my_prom_name }}"
+    chart_ref: "{{ prom_chart_name }}"
+    release_namespace: "{{ monitoring_namespcae }}"
+    values_files:
+      - "{{ prom_values_path }}"

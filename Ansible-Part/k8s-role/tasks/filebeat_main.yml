@@ -1,0 +1,12 @@
+- name: Add consul helm repo
+  kubernetes.core.helm_repository:
+    name: "{{ my_filebeat_name }}"
+    repo_url: "{{ filebeat_helm_chart_url }}"
+
+- name: Deploy consul chart using values files on target
+  kubernetes.core.helm:
+    name: "{{ my_filebeat_name }}"
+    chart_ref: "{{ filebeat_chart_name }}"
+    release_namespace: "{{ monitoring_namespcae }}"
+    values_files:
+      - "{{ filebeat_values_path }}"
