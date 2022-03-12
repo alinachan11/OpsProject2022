@@ -11,8 +11,9 @@ yes |  apt-get install python3-apt
 
 apt update
 apt install software-properties-common
-add-apt-repository --yes --update ppa:ansible/ansible
-yes | apt install ansible 
+
+yes | sudo apt install python3-pip
+yes | pip3 install ansible openshift pyyaml kubernetes 
 
 yes | apt install python-boto3
 
@@ -72,6 +73,7 @@ mv /home/ubuntu/${local_file.ansible_key.filename} /home/ubuntu/.ssh/
 
 echo "end of user data - bastion host"
 USERDATA
+
 
 }
 
