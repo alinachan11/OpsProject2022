@@ -457,7 +457,7 @@ datasources:
     datasources:
     - name: Prometheus
       type: prometheus
-      url: http://add7237a5f7b3443292b11d2e3da88d6-894643706.us-east-1.elb.amazonaws.com
+      url: http://10.0.3.40:9090
       access: proxy
       isDefault: true
     - name: CloudWatch

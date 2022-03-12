@@ -10,7 +10,7 @@ module "ec2-instance" {
   instance_type               = "t3.medium"
   ami                         = data.aws_ami.ami.id
   key_name                    = var.ssh_key_name
-  subnet_id                   = tolist(module.vpc_module.private_subnets_id)[1]
+  subnet_id                   = tolist(module.vpc_module.public_subnets_id)[1]
   vpc_security_group_ids      = [module.security-group.this_security_group_id]
   associate_public_ip_address = true
   user_data = file("./scrips/logsuserdata.sh")
