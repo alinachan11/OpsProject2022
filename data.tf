@@ -18,3 +18,10 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"] # Canonical
 }
+
+data "template_file" "filebeat_deployment" {
+  template = file("${path.module}/files/filebeat_deployment")
+  vars = {
+    ELK_IP             = module.ec2-instance.public_ip[0]
+  }
+}

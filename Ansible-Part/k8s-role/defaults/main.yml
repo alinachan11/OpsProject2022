@@ -1,11 +1,12 @@
 ---
 ##### for consul main ##############
 consul_gossip_name : "consul-gossip-encryption-key"
-gossip : "uDBV4e+LbFW3019YKPxIrg=="
+gossip : "dURCVjRlK0xiRlczMDE5WUtQeElyZz09"
 consul_namespcae : "consul"
 my_consul_name : "myconsul"
 consul_helm_chart_url : "https://helm.releases.hashicorp.com"
-consul_chart_name : "hashicorp/consul"
+consul_chart_name : "hashicorp"
+my_consul_chart_name : "hashicorp/consul"
 consul_values_path : "/home/ubuntu/Helm-Part/consul_values.yml"
 
 ##### for prom main ##############
@@ -13,6 +14,7 @@ consul_values_path : "/home/ubuntu/Helm-Part/consul_values.yml"
 my_prom_name : "myprom"
 prom_helm_chart_url : "https://prometheus-community.github.io/helm-charts"
 prom_chart_name : "prometheus-community/prometheus"
+my_prom_chart_name : "prometheus-community"
 prom_values_path : "/home/ubuntu/Helm-Part/prom_values.yml"
 
 ##### for grafana main ##############
@@ -20,6 +22,7 @@ prom_values_path : "/home/ubuntu/Helm-Part/prom_values.yml"
 my_grafana_name : "mygrafana"
 grafana_helm_chart_url : "https://grafana.github.io/helm-charts"
 grafana_chart_name : "grafana/grafana"
+my_grafana_chart_name : "grafana"
 grafana_values_path : "/home/ubuntu/Helm-Part/grafana_values.yml"
 
 ##### for filebeat main ##############
@@ -27,6 +30,7 @@ grafana_values_path : "/home/ubuntu/Helm-Part/grafana_values.yml"
 my_filebeat_name : "myfilebeat"
 filebeat_helm_chart_url : "https://helm.elastic.co"
 filebeat_chart_name : "elastic/filebeat"
+my_filebeat_chart_name : "elastic"
 filebeat_values_path : "/home/ubuntu/Helm-Part/filebeat_values.yml"
 
 ########  general ########################

@@ -13,7 +13,7 @@ module "ec2-instance" {
   subnet_id                   = tolist(module.vpc_module.public_subnets_id)[1]
   vpc_security_group_ids      = [module.security-group.this_security_group_id]
   associate_public_ip_address = true
-  user_data = file("./loguserdata.sh")
+  user_data = file("${path.module}/scrips/loguserdata.sh")
 
   tags = {
     Terraform   = "true"

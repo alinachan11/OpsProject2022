@@ -15,9 +15,11 @@ apt install software-properties-common
 yes | sudo apt install python3-pip
 yes | pip3 install ansible openshift pyyaml kubernetes 
 
-yes | apt install python-boto3
+yes | pip3 install boto3
 
 yes | apt-get install zip
+
+ansible-galaxy collection install kubernetes.core
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
