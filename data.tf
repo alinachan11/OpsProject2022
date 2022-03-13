@@ -19,3 +19,10 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+data "template_file" "configs_for_ansible" {
+  template = file("configs_for_ansible.ini")
+  vars = {
+    ELK_IP             = module.ec2-instance.public_ip[0]
+  }
+}
+
