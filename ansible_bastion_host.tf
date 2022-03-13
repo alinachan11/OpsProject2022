@@ -25,6 +25,20 @@ resource "aws_instance" "ansible_server" {
       bastion_host = aws_instance.bastion_server.public_ip
       bastion_user = "ubuntu"
       bastion_private_key =  file(local_file.ansible_key.filename)          
+    }
+  }
+    provisioner "file" {
+    source      = data.template_file.userdata.rendered
+    destination = "/home/ubuntu/"
+    connection {   
+      type        = "ssh" 
+      host        = self.public_ip
+      user        = "ubuntu"
+      private_key = file(local_file.ansible_key.filename) 
+
+      bastion_host = aws_instance.bastion_server.public_ip
+      bastion_user = "ubuntu"
+      bastion_private_key =  file(local_file.ansible_key.filename)          
     }   
   }
 

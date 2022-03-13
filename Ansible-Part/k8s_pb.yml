@@ -1,17 +1,8 @@
 - name: consul k8s
-  hosts: _ans-control
+  hosts: _ans_control
   remote_user: ubuntu
   become: yes
-  vars:
-    - server: false
-    - service_port: 8080
-    - service_name : 'Jenkins-Service'
-    - service_tags : 'Jenkins-Service'
-    - check_id : "tcp-{{ service_name }}"
-    - check_name : "tcp-{{ service_port }}"
-    - check_tcp : "localhost:{{ service_port }}"
-    - add_service : true
   tasks:
-   - name: consul role - for client
-     include_role:
-       name: consul-role
+  - name: consul role - for server
+    include_role:
+      name: k8s-role

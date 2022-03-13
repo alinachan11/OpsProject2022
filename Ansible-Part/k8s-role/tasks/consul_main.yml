@@ -8,20 +8,20 @@
 
 - name: make consul gossip key secret
   kubernetes.core.k8s:
-    name: testing
-    api_version: v1
-    kind: Secret
-    type: Opaque
     state: present
-    metadata:
-      name: "{{ consul_gossip_name }}"
-      namespace: "{{ consul_namespcae }}"
-    data:
-      key: "{{ gossip }}"
+    definition: 
+      apiVersion: v1
+      kind: Secret
+      type: Opaque             
+      metadata:
+        name: "{{ consul_gossip_name }}"
+        namespace: "{{ consul_namespcae }}"     
+      data:
+        key: "{{ gossip }}"
 
 - name: Add consul helm repo
   kubernetes.core.helm_repository:
-    name: "{{ my_consul_name }}"
+    name: "{{ my_consul_chart_name }}"
     repo_url: "{{ consul_helm_chart_url }}"
 
 - name: Deploy consul chart using values files on target
