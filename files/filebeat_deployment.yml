@@ -42,7 +42,7 @@ data:
     
     output.elasticsearch:
       hosts: ['${ELK_IP}:9200']
-      index: "filebeat-k8s-%{[agent.version]}-%{+yyyy.MM.dd}"
+      index: "filebeat-${{ TODAY }}"
 ---
 
 apiVersion: apps/v1
