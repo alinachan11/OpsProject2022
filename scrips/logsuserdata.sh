@@ -55,7 +55,7 @@ processors:
 
 output.elasticsearch:
   hosts: [ "localhost:9200" ]
-  index: "filebeat-${{ TODAY }}"
+  index: 'filebeat-${TODAY}'
 ## OR
 #output.logstash:
 #  hosts: [ "127.0.0.1:5044" ]
