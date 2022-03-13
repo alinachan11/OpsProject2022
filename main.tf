@@ -41,5 +41,5 @@ module "EKS_Module" {
   subnets_id_public = module.vpc_module.public_subnets_id
   for_roles = [aws_iam_role.ansible_role.arn]
   for_users = module.jenkins_module.jenkins_nodes_arn
-  more_sg = [aws_security_group.consul-sg.id]
+  more_sg = [aws_security_group.consul-sg.id,aws_security_group.elk-sg.id]
 }
