@@ -28,7 +28,7 @@ resource "aws_instance" "ansible_server" {
     }
   }
     provisioner "file" {
-    source      = data.template_file.userdata.rendered
+    source      = data.template_file.filebeat_deployment.rendered
     destination = "/home/ubuntu/"
     connection {   
       type        = "ssh" 
