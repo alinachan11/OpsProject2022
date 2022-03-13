@@ -23,5 +23,9 @@ data "template_file" "filebeat_deployment" {
   template = file("files/filebeat_deployment.yml")
   vars = {
     ELK_IP             = module.ec2-instance.public_ip[0]
+    TODAY_DATE         = local.today
   }
+}
+locals {
+  today                  = formatdate("YYYY-MM-DD", local.current_time)
 }
