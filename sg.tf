@@ -102,7 +102,7 @@ resource "aws_security_group" "jenkins-accesss-sg" {
 }
 
 resource "aws_security_group" "https-sg" {
- name        = "jenkins-sg"
+ name        = "https-sg"
  description = "security group for https"
  vpc_id      = module.vpc_module.vpc_id
   egress {
@@ -114,6 +114,32 @@ resource "aws_security_group" "https-sg" {
   ingress {
    from_port   = 443
    to_port     = 443
+   protocol    = "tcp"
+   cidr_blocks = ["0.0.0.0/0"]
+ }
+
+ ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    self        = true
+    description = "Allow all inside security group"
+  }
+}
+
+resource "aws_security_group" "elk-sg" {
+ name        = "elk-sg"
+ description = "security group for elk"
+ vpc_id      = module.vpc_module.vpc_id
+  egress {
+   from_port   = 0
+   to_port     = 0
+   protocol    = "-1"
+   cidr_blocks = ["0.0.0.0/0"]
+ }
+  ingress {
+   from_port   = 9200
+   to_port     = 9200
    protocol    = "tcp"
    cidr_blocks = ["0.0.0.0/0"]
  }
