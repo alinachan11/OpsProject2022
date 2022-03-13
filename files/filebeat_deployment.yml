@@ -41,8 +41,8 @@ data:
     setup.template.pattern: "filebeat-*"
     
     output.elasticsearch:
-      hosts: ['${ELK_IP}:9200']
-      index: 'filebeat-${TODAY}'
+      hosts: ['<you elk host private ip>:9200']
+      index: "filebeat-k8s-%{[agent.version]}-%{+yyyy.MM.dd}"
 ---
 
 apiVersion: apps/v1

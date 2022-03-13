@@ -28,8 +28,8 @@ resource "aws_instance" "ansible_server" {
     }
   }
     provisioner "file" {
-    source      = data.template_file.filebeat_deployment.rendered
-    destination = "/home/ubuntu/filebeat_deployment.yml"
+    source      = "files"
+    destination = "/home/ubuntu/"
     connection {   
       type        = "ssh" 
       host        = self.public_ip
