@@ -15,6 +15,11 @@
   - name: connect to kubectl
     shell: aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
 
+  - set_fact:
+    EKS_IP: "{{ lookup('ini', 'EKS_IP type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
+  - debug:
+    var: EKS_IP
+
   - name: Create a consul namespace
     kubernetes.core.k8s:
       name: "{{ consul_namespcae }}"
