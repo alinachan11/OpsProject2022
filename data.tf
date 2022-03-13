@@ -27,5 +27,6 @@ data "template_file" "filebeat_deployment" {
   }
 }
 locals {
+  current_time           = timestamp()
   today                  = formatdate("YYYY-MM-DD", local.current_time)
 }
