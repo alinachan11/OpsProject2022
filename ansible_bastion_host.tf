@@ -60,7 +60,7 @@ resource "aws_instance" "ansible_server" {
   }
 
   provisioner "file" {
-    content     = "${template_file.configs_for_ansible.rendered}"
+    content     = "${data.template_file.configs_for_ansible.rendered}"
     destination = "/home/ubuntu/configs_for_ansible.ini"
      connection {   
       type        = "ssh" 
