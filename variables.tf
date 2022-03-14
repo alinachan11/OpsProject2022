@@ -7,6 +7,3 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "slack_token"{
-  description = "the slack notifications token"
-}
