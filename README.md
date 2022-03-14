@@ -9,4 +9,16 @@ Consul module: [a link](https://github.com/alinachan11/terraform-alinaops-SD-Mod
 EKS module:  [a link](https://github.com/alinachan11/terraform-alinaops-my-EKS-Module/blob/main/README.md) <br />
 
 
-# Output:
+# Using the project:
+1. After making changes and pushing in the changes, terraform cloud will make a plan, we can choose to apply it or not, we can also
+start a new run based on last succefull build.
+
+2. In case we want to ssh the machines we need the ssh key which is kept inside s3 bucket - alina-bucket-for-opsproject. we can download from there.
+
+3. While jenkins comes with most needed things we still need to make a few changes:
+    a.
+    b.
+    c.
+
+
+# Usefull outputs:

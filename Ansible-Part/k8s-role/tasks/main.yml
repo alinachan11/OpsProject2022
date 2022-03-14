@@ -9,6 +9,11 @@
     kind: Namespace
     state: present
 
+- set_fact:
+    SLACK_TOKEN: "{{ lookup('ini', 'slack_token type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
+- debug:
+    var: SLACK_TOKEN
+
 # tasks file for consul-role
 - name: create and deploy all needed helm charts
   include_tasks: "{{ item }}"
