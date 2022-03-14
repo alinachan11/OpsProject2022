@@ -21,9 +21,14 @@
   - name: connect to kubectl
     shell: aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
 
+  - set_fact:
+      SLACK_TOKEN: "{{ lookup('ini', 'slack_token type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
+  - debug:
+      var: SLACK_TOKEN
+
   - name: Send a message test
     community.general.slack:
-      token: xoxp-3255369957312-3244224422481-3235423787140-87643f3f0a0702ddf5b6138cb27db02c
+      token: SLACK_TOKEN
       channel: '#notifications'
       msg: 'will be bot message'
       color: '#0097b3'
@@ -112,7 +117,7 @@
 
   - name: Send a message with a link using Slack - prometheus lb
     community.general.slack:
-      token: xoxp-3255369957312-3244224422481-3235423787140-87643f3f0a0702ddf5b6138cb27db02c
+      token: SLACK_TOKEN
       channel: '#notifications'
       msg: We sent this message using <{{ prom_lb }}>!
       color: '#0097b3'
