@@ -1,6 +1,6 @@
 provider "aws" {
     region = var.aws_region
-    allowed_account_ids = [var.aws_account_id]
+    allowed_account_ids = ["${TF_aws_account_id}"]
     profile = "alina"
 }
 
@@ -25,6 +25,7 @@ data "template_file" "configs_for_ansible" {
   vars = {
     ELK_IP             = module.ec2-instance.public_ip[0]
     CONSUL_IP          = module.sd_module.consul_lb_dns
+    slack_token        = "${TF_slack_token}"
   }
 }
 
