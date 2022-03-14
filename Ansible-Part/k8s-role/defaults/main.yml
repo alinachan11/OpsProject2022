@@ -27,11 +27,6 @@ grafana_values_path : "/home/ubuntu/Helm-Part/grafana_values.yml"
 
 ##### for filebeat main ##############
 
-my_filebeat_name : "myfilebeat"
-filebeat_helm_chart_url : "https://helm.elastic.co"
-filebeat_chart_name : "elastic/filebeat"
-my_filebeat_chart_name : "elastic"
-filebeat_values_path : "/home/ubuntu/Helm-Part/filebeat_values.yml"
 
 ########  general ########################
-minitoring_namespcae : "monitoring"
+monitoring_namespcae : "monitoring"

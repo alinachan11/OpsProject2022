@@ -11,18 +11,38 @@
     - consul_helm_chart_url : "https://helm.releases.hashicorp.com"
     - consul_chart_name : "hashicorp/consul"
     - consul_values_path : "/home/ubuntu/Helm-Part/consul_values.yml"
+    - my_prom_name : "myprom"
+    - prom_helm_chart_url : "https://prometheus-community.github.io/helm-charts"
+    - prom_chart_name : "prometheus-community/prometheus"
+    - my_prom_chart_name : "prometheus-community"
+    - prom_values_path : "/home/ubuntu/Helm-Part/prom_values.yml"
+    - monitoring_namespcae : "monitoring"
   tasks:
   - name: connect to kubectl
     shell: aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
 
+  - name: Send a message test
+    community.general.slack:
+      token: xoxp-3255369957312-3244224422481-3235423787140-87643f3f0a0702ddf5b6138cb27db02c
+      channel: '#notifications'
+      msg: 'will be bot message'
+      color: '#0097b3'
+
   - set_fact:
-    EKS_IP: "{{ lookup('ini', 'EKS_IP type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
+      ELK_IP: "{{ lookup('ini', 'ELK_IP type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
   - debug:
-    var: EKS_IP
+      var: ELK_IP
 
   - name: Create a consul namespace
     kubernetes.core.k8s:
       name: "{{ consul_namespcae }}"
+      api_version: v1
+      kind: Namespace
+      state: present
+
+  - name: Create a monitoring namespace
+    kubernetes.core.k8s:
+      name: "{{ monitoring_namespcae }}"
       api_version: v1
       kind: Namespace
       state: present
@@ -52,3 +72,38 @@
       release_namespace: "{{ consul_namespcae }}"
       values_files:
         - "{{ consul_values_path }}"
+
+  - name: create filebeat yml
+    template:
+      src: /home/ubuntu/Ansible-Part/k8s-role/templates/filebeat_deployment.yml.j2
+      dest: "/home/ubuntu/filebeat_deployment.yml"
+
+  - name: Create  Deployment of filebeat
+    kubernetes.core.k8s:
+      state: present
+      src: /home/ubuntu/filebeat_deployment.yml
+
+  - name: Add prometheus helm repo
+    kubernetes.core.helm_repository:
+      name: "{{ my_prom_chart_name }}"
+      repo_url: "{{ prom_helm_chart_url }}"
+
+  - name: Deploy prometheus chart using values files on target
+    kubernetes.core.helm:
+      name: "{{ my_prom_name }}"
+      chart_ref: "{{ prom_chart_name }}"
+      release_namespace: "{{ monitoring_namespcae }}"
+      values_files:
+        - "{{ prom_values_path }}"
+      
+  - name: save prometheus lb address to a variable
+    shell: kubectl get svc myprom-prometheus-server -n monitoring -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}"
+    register: prom_lb
+
+  - name: Send a message with a link using Slack - prometheus lb
+    community.general.slack:
+      token: xoxp-3255369957312-3244224422481-3235423787140-87643f3f0a0702ddf5b6138cb27db02c
+      channel: '#notifications'
+      msg: We sent this message using <{{ prom_lb }}>!
+      color: '#0097b3'
+      
