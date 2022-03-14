@@ -1,6 +1,7 @@
 provider "aws" {
     region = var.aws_region
-    #profile = "alina"
+    allowed_account_ids = [var.aws_account_id]
+    profile = "alina"
 }
 
 data "aws_ami" "ubuntu" {
