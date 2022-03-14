@@ -7,3 +7,12 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "aws_account_id" {
+  type = string
+  default = ""
+}
+
+variable "slack_token" {
+  type = string
+  default = ""
+}
