@@ -23,6 +23,7 @@ data "template_file" "configs_for_ansible" {
   template = file("configs_for_ansible.ini")
   vars = {
     ELK_IP             = module.ec2-instance.public_ip[0]
+    CONSUL_IP          = module.sd_module.consul_lb_dns
   }
 }
 

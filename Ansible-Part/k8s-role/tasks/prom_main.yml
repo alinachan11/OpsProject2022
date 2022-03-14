@@ -4,6 +4,16 @@
     name: "{{ my_prom_chart_name }}"
     repo_url: "{{ prom_helm_chart_url }}"
 
+- set_fact:
+    CONSUL_IP: "{{ lookup('ini', 'ELK_IP type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
+- debug:
+    var: CONSUL_IP
+
+- name: create prometheus values yml
+  template:
+    src: /home/ubuntu/Ansible-Part/k8s-role/templates/prom_values.yml.j2
+    dest: "{{ prom_values_path }}"
+
 - name: Deploy prometheus chart using values files on target
   kubernetes.core.helm:
     name: "{{ my_prom_name }}"

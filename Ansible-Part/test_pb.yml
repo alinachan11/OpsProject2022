@@ -15,7 +15,7 @@
     - prom_helm_chart_url : "https://prometheus-community.github.io/helm-charts"
     - prom_chart_name : "prometheus-community/prometheus"
     - my_prom_chart_name : "prometheus-community"
-    - prom_values_path : "/home/ubuntu/Helm-Part/prom_values.yml"
+    - prom_values_path : "/home/ubuntu/prom_values.yml"
     - monitoring_namespcae : "monitoring"
   tasks:
   - name: connect to kubectl
@@ -87,6 +87,16 @@
     kubernetes.core.helm_repository:
       name: "{{ my_prom_chart_name }}"
       repo_url: "{{ prom_helm_chart_url }}"
+
+  - set_fact:
+    CONSUL_IP: "{{ lookup('ini', 'ELK_IP type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
+  - debug:
+    var: CONSUL_IP
+
+  - name: create prometheus values yml
+    template:
+      src: /home/ubuntu/Ansible-Part/k8s-role/templates/prom_values.yml.j2
+      dest: "{{ prom_values_path }}"
 
   - name: Deploy prometheus chart using values files on target
     kubernetes.core.helm:
