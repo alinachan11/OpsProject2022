@@ -14,5 +14,9 @@ variable "aws_account_id" {
 
 variable "slack_token" {
   type = string
-  default = ""
+}
+
+variable "private_zone_name" {
+  type = string
+  default = "alinaops.com"
 }
