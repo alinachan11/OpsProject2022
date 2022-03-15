@@ -14,6 +14,7 @@ variable "aws_account_id" {
 
 variable "slack_token" {
   type = string
+  default = "xxxx/yyyy/zzzz"
 }
 
 variable "private_zone_name" {
