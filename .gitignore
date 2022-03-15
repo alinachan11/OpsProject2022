@@ -30,3 +30,8 @@ override.tf.json
 
 # no pem key files
 *.pem
+
+.idea/
+.terraform.lock.hcl
+terraform.tfvars
+config/
