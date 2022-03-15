@@ -11,9 +11,9 @@ module "ec2-instance" {
   ami                         = data.aws_ami.ami.id
   key_name                    = var.ssh_key_name
   subnet_id                   = tolist(module.vpc_module.public_subnets_id)[1]
-  vpc_security_group_ids      = [aws_security_group.elk-sg.id,aws_security_group.ssh-sg.id, aws_default_security_group.default.id,aws_default_security_group.consul-sg.id]
+  vpc_security_group_ids      = [aws_security_group.elk-sg.id,aws_security_group.ssh-sg.id, aws_default_security_group.default.id,aws_security_group.consul-sg.id]
   associate_public_ip_address = true
-  user_data = file("./logsuserdata.sh")
+  user_data = file("./loguserdata.sh")
 
   tags = {
     Terraform   = "true"
