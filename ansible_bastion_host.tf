@@ -18,7 +18,7 @@ resource "aws_instance" "ansible_server" {
     destination = "/home/ubuntu/${local_file.ansible_key.filename}"
     connection {   
       type        = "ssh" 
-      host        = self.public_ip
+      host        = self.private_ip
       user        = "ubuntu"
       private_key = file(local_file.ansible_key.filename) 
 
@@ -32,7 +32,7 @@ resource "aws_instance" "ansible_server" {
     destination = "/home/ubuntu/"
     connection {   
       type        = "ssh" 
-      host        = self.public_ip
+      host        = self.private_ip
       user        = "ubuntu"
       private_key = file(local_file.ansible_key.filename) 
 
@@ -49,7 +49,7 @@ resource "aws_instance" "ansible_server" {
     destination = "/tmp/kubeconfig_opsSchool-eks"
      connection {   
       type        = "ssh" 
-      host        = self.public_ip
+      host        = self.private_ip
       user        = "ubuntu"
       private_key = file(local_file.ansible_key.filename)
 
@@ -64,7 +64,7 @@ resource "aws_instance" "ansible_server" {
     destination = "/home/ubuntu/configs_for_ansible.ini"
      connection {   
       type        = "ssh" 
-      host        = self.public_ip
+      host        = self.private_ip
       user        = "ubuntu"
       private_key = file(local_file.ansible_key.filename)
 
@@ -78,7 +78,7 @@ resource "aws_instance" "ansible_server" {
     destination = "/home/ubuntu/"
     connection {   
       type        = "ssh" 
-      host        = self.public_ip
+      host        = self.private_ip
       user        = "ubuntu"
       private_key = file(local_file.ansible_key.filename) 
 
@@ -93,7 +93,7 @@ resource "aws_instance" "ansible_server" {
     destination = "/home/ubuntu/"
     connection {   
       type        = "ssh" 
-      host        = self.public_ip
+      host        = self.private_ip
       user        = "ubuntu"
       private_key = file(local_file.ansible_key.filename) 
 
