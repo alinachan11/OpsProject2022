@@ -131,6 +131,6 @@ resource "aws_lb_target_group" "elk" {
 
 resource "aws_lb_target_group_attachment" "elk" {
   target_group_arn = aws_lb_target_group.elk.id
-  target_id        = module.ec2-instance.id
+  target_id        = module.ec2-instance.id[0]
   port             = 5601
 }
