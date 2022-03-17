@@ -15,7 +15,7 @@
     - prom_helm_chart_url : "https://prometheus-community.github.io/helm-charts"
     - prom_chart_name : "prometheus-community/prometheus"
     - my_prom_chart_name : "prometheus-community"
-    - prom_values_path : "/home/ubuntu/prom_values.yml"
+    - prom_values_path : "/home/ubuntu/Helm-Part/prom_values.yml"
     - monitoring_namespcae : "monitoring"
   tasks:
   - name: connect to kubectl
@@ -23,20 +23,6 @@
 
   - name: install helm
     shell: /home/ubuntu/get_helm.sh
-
-  - set_fact:
-      SLACK_TOKEN: "{{ lookup('ini', 'slack_token type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
-  - debug:
-      var: SLACK_TOKEN
-
-  - name: Send a message test
-    slack:
-      token: SLACK_TOKEN
-      #channel: '#notifications'
-      msg: 'will be bot message1'
-      color: '#0097b3'
-      domain: "hooks.slack.com/services"
-      #username: '@kandulachan'
 
   - set_fact:
       ELK_IP: "{{ lookup('ini', 'ELK_IP type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
@@ -87,12 +73,17 @@
   - name: create filebeat yml
     template:
       src: /home/ubuntu/Ansible-Part/k8s-role/templates/filebeat_deployment.yml.j2
-      dest: "/home/ubuntu/filebeat_deployment.yml"
+      dest: "/home/ubuntu/Ansible-Part/deployments/filebeat_deployment.yml"
 
   - name: Create  Deployment of filebeat
     kubernetes.core.k8s:
       state: present
-      src: /home/ubuntu/filebeat_deployment.yml
+      src: /home/ubuntu/Ansible-Part/deployments/filebeat_deployment.yml
+
+  - name: Create  Deployment of elastic search
+    kubernetes.core.k8s:
+      state: present
+      src: /home/ubuntu/Ansible-Part/deployments/deploy_es.yml
 
   - name: Add prometheus helm repo
     kubernetes.core.helm_repository:
@@ -118,15 +109,14 @@
       release_namespace: "{{ monitoring_namespcae }}"
       values_files:
         - "{{ prom_values_path }}"
-      
+
   - name: save prometheus lb address to a variable
-    shell: kubectl get svc myprom-prometheus-server -n monitoring -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}"
+    shell: kubectl get svc myprom-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}"
     register: prom_lb
 
-  - name: Send a message with a link using Slack - prometheus lb
-    community.general.slack:
-      token: SLACK_TOKEN
-      channel: '#notifications'
-      msg: We sent this message using <{{ prom_lb }}>!
-      color: '#0097b3'
+  - debug:
+    var: prom_lb
+
+
+      
       
