@@ -129,8 +129,8 @@ resource "aws_lb_target_group" "elk" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "jenkins_master" {
-  target_group_arn = aws_lb_target_group.jenkins_master.id
+resource "aws_lb_target_group_attachment" "elk" {
+  target_group_arn = aws_lb_target_group.elk.id
   target_id        = module.ec2-instance.id
-  port             = 8080
+  port             = 5601
 }
