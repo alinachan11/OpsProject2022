@@ -1,6 +1,6 @@
 module "vpc_module" {
   source                    = "app.terraform.io/alina-ops/my-vpc-module/alinaops"
-  version = "1.0.2"
+  version = "1.0.2-alpha"
   vpc_cidr_block            = "10.0.0.0/16"
   private_subnets_cidr_list = ["10.0.2.0/24", "10.0.3.0/24"]
   public_subnets_cidr_list  = ["10.0.102.0/24", "10.0.103.0/24"]
@@ -14,7 +14,7 @@ module "jenkins_module" {
   subnets_id_public = module.vpc_module.public_subnets_id
   nodes_count = length(module.vpc_module.private_subnets_id)
   bh_public_ip = aws_instance.bastion_server.public_ip
-  security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.jenkins-accesss-sg.id,aws_security_group.https-sg.id,aws_security_group.default.id]
+  security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.jenkins-accesss-sg.id,aws_security_group.https-sg.id,aws_security_group.prom-sg.id,aws_security_group.default.id]
   kubeconfig = module.EKS_Module.kubeconfig
   eks_control_profile_name = "${aws_iam_instance_profile.assume_role_profile.name}"
 }
@@ -29,7 +29,7 @@ module "sd_module" {
   consul_servers_count = 3
   bh_public_ip = aws_instance.bastion_server.public_ip
   for_testing_ip = false
-  security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.default.id]
+  security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.prom-sg,aws_security_group.default.id]
 }
 
 
@@ -41,5 +41,5 @@ module "EKS_Module" {
   subnets_id_public = module.vpc_module.public_subnets_id
   for_roles = [aws_iam_role.ansible_role.arn]
   for_users = module.jenkins_module.jenkins_nodes_arn
-  more_sg = [aws_security_group.consul-sg.id,aws_security_group.elk-sg.id,aws_security_group.default.id]
+  more_sg = [aws_security_group.consul-sg.id,aws_security_group.elk-sg.id,aws_security_group.prom-sg,aws_security_group.default.id]
 }

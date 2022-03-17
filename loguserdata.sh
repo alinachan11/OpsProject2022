@@ -61,4 +61,12 @@ output.elasticsearch:
 #  hosts: [ "127.0.0.1:5044" ]
 EOF
 
+sudo filebeat modules enable elasticsearch
+sudo filebeat setup
+sudo service filebeat start
+
+echo 'network.host: 0.0.0.0' >> /etc/elasticsearch/elasticsearch.yml
+echo 'discovery.type: single-node' >> /etc/elasticsearch/elasticsearch.yml
+systemctl restart elasticsearch
+
 echo "INFO: userdata finished"
