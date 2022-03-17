@@ -174,6 +174,29 @@ resource "aws_security_group" "elk-sg" {
   }
 }
 
+resource "aws_security_group" "default" {
+  name        = "my-project-default-sg"
+  description = "Default security group to allow inbound/outbound from the VPC"
+  vpc_id      = module.vpc_module.vpc_id
+  depends_on  = [module.vpc_module]
+  ingress {
+    from_port = "0"
+    to_port   = "0"
+    protocol  = "-1"
+    self      = true
+  }
+  
+  egress {
+    from_port = "0"
+    to_port   = "0"
+    protocol  = "-1"
+    self      = "true"
+  }
+  tags = {
+    purpose = "checking if this default sg is better"
+  }
+}
+
 resource "aws_default_security_group" "default" {
   vpc_id = module.vpc_module.vpc_id
 
