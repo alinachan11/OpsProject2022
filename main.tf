@@ -29,7 +29,7 @@ module "sd_module" {
   consul_servers_count = 3
   bh_public_ip = aws_instance.bastion_server.public_ip
   for_testing_ip = false
-  security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.prom-sg,aws_security_group.default.id]
+  security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.prom-sg.id,aws_security_group.default.id]
 }
 
 
@@ -41,5 +41,5 @@ module "EKS_Module" {
   subnets_id_public = module.vpc_module.public_subnets_id
   for_roles = [aws_iam_role.ansible_role.arn]
   for_users = module.jenkins_module.jenkins_nodes_arn
-  more_sg = [aws_security_group.consul-sg.id,aws_security_group.elk-sg.id,aws_security_group.prom-sg,aws_security_group.default.id]
+  more_sg = [aws_security_group.consul-sg.id,aws_security_group.elk-sg.id,aws_security_group.prom-sg.id,aws_security_group.default.id]
 }
