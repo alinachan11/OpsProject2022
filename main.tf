@@ -28,7 +28,7 @@ module "sd_module" {
   subnets_id_public = module.vpc_module.public_subnets_id
   consul_servers_count = 3
   bh_public_ip = aws_instance.bastion_server.public_ip
-  for_testing_ip = true
+  for_testing_ip = false
   security_groups = [aws_security_group.ssh-sg.id,aws_security_group.consul-sg.id,aws_security_group.default.id]
 }
 
