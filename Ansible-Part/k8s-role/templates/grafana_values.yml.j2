@@ -455,11 +455,11 @@ datasources:
   datasources.yaml:
     apiVersion: 1
     datasources:
-    #- name: Prometheus
-    #  type: prometheus
-    #  url: http://10.0.3.40:9090
-    #  access: proxy
-    #  isDefault: true
+    - name: Prometheus
+      type: prometheus
+      url: 'http://{{ PROM__LB }}'
+      access: proxy
+      isDefault: true
     - name: CloudWatch
       type: cloudwatch
       access: proxy
@@ -538,7 +538,7 @@ dashboards: {}
 ##   example-dashboard.json: |
 ##     RAW_JSON
 ##
-dashboardsConfigMaps: {}
+dashboardsConfigMaps: 
 #  default: ""
 
 ## Grafana's primary configuration
@@ -633,12 +633,12 @@ sidecar:
   # skipTlsVerify: true
   enableUniqueFilenames: false
   dashboards:
-    enabled: true
+    enabled: false
     SCProvider: true
     # label that the configmaps with dashboards are marked with
     label: grafana_dashboard
     # value of label that the configmaps with dashboards are set to
-    labelValue: "true"
+    labelValue: null
     # folder in the pod that should hold the collected dashboards (unless `defaultFolderName` is set)
     folder: /tmp/dashboards
     # The default folder name, it will create a subfolder under the `folder` and put dashboards in there instead
@@ -646,7 +646,7 @@ sidecar:
     # Namespaces list. If specified, the sidecar will search for config-maps/secrets inside these namespaces.
     # Otherwise the namespace in which the sidecar is running will be used.
     # It's also possible to specify ALL to search in all namespaces.
-    searchNamespace: monitoring
+    searchNamespace: null
     # Method to use to detect ConfigMap changes. With WATCH the sidecar will do a WATCH requests, with SLEEP it will list all ConfigMaps, then sleep for 60 seconds.
     watchMethod: WATCH
     # search in configmap, secret or both
@@ -679,11 +679,11 @@ sidecar:
     # label that the configmaps with datasources are marked with
     label: grafana_datasource
     # value of label that the configmaps with datasources are set to
-    labelValue: true
+    labelValue: null
     # If specified, the sidecar will search for datasource config-maps inside this namespace.
     # Otherwise the namespace in which the sidecar is running will be used.
     # It's also possible to specify ALL to search in all namespaces
-    searchNamespace: monitoring
+    searchNamespace: null
     # Method to use to detect ConfigMap changes. With WATCH the sidecar will do a WATCH requests, with SLEEP it will list all ConfigMaps, then sleep for 60 seconds.
     watchMethod: WATCH
     # search in configmap, secret or both
