@@ -129,10 +129,25 @@
       name: "{{ my_grafana_chart_name }}"
       repo_url: "{{ grafana_helm_chart_url }}"
 
-  - name: create grafana values yml
+  - name: create grafana datasources yml
     template:
-      src: /home/ubuntu/Ansible-Part/k8s-role/templates/grafana_values.yml.j2
-      dest: "/home/ubuntu/Helm-Part/grafana_values.yml"
+      src: /home/ubuntu/Ansible-Part/k8s-role/templates/grafana_datasources.yml.j2
+      dest: "/home/ubuntu/Ansible-Part/deployments/grafana_datasources.yml"
+
+  - name: deploy grafana datasources yml
+    kubernetes.core.k8s:
+      state: present
+      src: /home/ubuntu/Ansible-Part/deployments/grafana_datasources.yml
+
+  - name: Create custom dashboards configmap for grafana
+    kubernetes.core.k8s:
+      state: present
+      src: /home/ubuntu/Ansible-Part/deployments/grafana_dashboards.yml
+
+  #- name: create grafana values yml
+  #  template:
+  #    src: /home/ubuntu/Ansible-Part/k8s-role/templates/grafana_values.yml.j2
+  #    dest: "/home/ubuntu/Helm-Part/grafana_values.yml"
 
   - name: Deploy grafana chart using values files on target
     kubernetes.core.helm:
