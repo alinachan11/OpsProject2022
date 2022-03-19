@@ -1,5 +1,5 @@
 - name: install node exportersr
-  hosts: _nodeexporters
+  hosts: _node_exporter
   remote_user: ubuntu
   become: yes
   tasks:

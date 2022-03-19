@@ -4,15 +4,6 @@
     name: "{{ my_prom_chart_name }}"
     repo_url: "{{ prom_helm_chart_url }}"
 
-- set_fact:
-    CONSUL_IP: "{{ lookup('ini', 'ELK_IP type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
-- debug:
-    var: CONSUL_IP
-
-- name: create prometheus values yml
-  template:
-    src: /home/ubuntu/Ansible-Part/k8s-role/templates/prom_values.yml.j2
-    dest: "{{ prom_values_path }}"
 
 - name: Deploy prometheus chart using values files on target
   kubernetes.core.helm:
@@ -21,13 +12,3 @@
     release_namespace: "{{ monitoring_namespcae }}"
     values_files:
       - "{{ prom_values_path }}"
-      
-- name: save prometheus lb address to a variable
-  shell: kubectl get svc myprom-lb -o jsonpath="{.status.loadBalancer.ingress[*]['ip', 'hostname']}"
-  register: prom_lb
-
-- name: Send a message with a link using Slack - prometheus lb
-  slack:
-    token: thetoken/generatedby/slack
-    msg: We sent this message using <{{ prom_lb }}>!
-    color: '#0097b3'
