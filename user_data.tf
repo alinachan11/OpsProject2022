@@ -42,6 +42,7 @@ cd /home/ubuntu/Ansible-Part
 sleep 30s
 ansible-playbook main_pb.yml
 ansible-playbook jenkins_nodes_pb.yml
+ansible-playbook node_exporter_pb.yml
 
 cd /home/ubuntu
 
