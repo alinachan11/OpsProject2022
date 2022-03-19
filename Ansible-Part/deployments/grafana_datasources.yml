@@ -12,6 +12,6 @@ data:
     datasources:
     - name: Prometheus
       type: prometheus
-      url: 'http://{{ PROM__LB }}'
+      url: 'http://af4acbf8b6a79488a8832a6ab77faaca-1110326338.us-east-1.elb.amazonaws.com'
       access: proxy
       isDefault: true

@@ -1412,6 +1412,8 @@ prometheus.yml:
         - targets:
           - localhost:9090
     - job_name: 'node-exporters'
+      scrape_interval: 5m
+      scrape_timeout: 1m
       consul_sd_configs:
         - server: '{{CONSUL_IP}}:8500'
       relabel_configs:
@@ -1421,6 +1423,8 @@ prometheus.yml:
           replacement: '$1:9100'
         - source_labels: ['__meta_consul_node']
           target_label: 'instance'
+      tls_config:
+        insecure_skip_verify: true
     - job_name: 'consul-exporters'
       consul_sd_configs:
         - server: '{{CONSUL_IP}}:8500'
