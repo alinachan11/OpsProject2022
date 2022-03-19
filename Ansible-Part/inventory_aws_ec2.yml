@@ -3,6 +3,7 @@ regions:
   - "us-east-1"
 keyed_groups:
   - key: tags.task
+  - key: tags.task2
   - key: tags.node_type
   - key: tags.consul_type
 filters:

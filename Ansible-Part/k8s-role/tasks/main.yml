@@ -2,17 +2,15 @@
 - name: connect to k8s
   shell: aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
 
+- name: install helm
+  shell: /home/ubuntu/get_helm.sh
+
 - name: Create a monitoring namespace
   kubernetes.core.k8s:
     name: "{{ monitoring_namespcae }}"
     api_version: v1
     kind: Namespace
     state: present
-
-- set_fact:
-    SLACK_TOKEN: "{{ lookup('ini', 'slack_token type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
-- debug:
-    var: SLACK_TOKEN
 
 # tasks file for consul-role
 - name: create and deploy all needed helm charts

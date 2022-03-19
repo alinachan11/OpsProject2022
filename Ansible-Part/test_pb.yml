@@ -85,10 +85,10 @@
       state: present
       src: /home/ubuntu/Ansible-Part/deployments/filebeat_deployment.yml
 
-  - name: Create  Deployment of elastic search
-    kubernetes.core.k8s:
-      state: present
-      src: /home/ubuntu/Ansible-Part/deployments/deploy_es.yml
+  #- name: Create  Deployment of elastic search
+  #  kubernetes.core.k8s:
+  #    state: present
+  #    src: /home/ubuntu/Ansible-Part/deployments/deploy_es.yml
 
   - name: Add prometheus helm repo
     kubernetes.core.helm_repository:
@@ -140,6 +140,11 @@
       src: /home/ubuntu/Ansible-Part/deployments/grafana_datasources.yml
 
   - name: Create custom dashboards configmap for grafana
+    kubernetes.core.k8s:
+      state: present
+      src: /home/ubuntu/Ansible-Part/deployments/grafana_dashboards.yml
+
+  - name: deploy grafana dashboards yml
     kubernetes.core.k8s:
       state: present
       src: /home/ubuntu/Ansible-Part/deployments/grafana_dashboards.yml

@@ -12,3 +12,8 @@
   kubernetes.core.k8s:
     state: present
     src: /home/ubuntu/filebeat_deployment.yml
+
+- name: Create  Deployment of elastic search
+  kubernetes.core.k8s:
+    state: present
+    src: /home/ubuntu/Ansible-Part/deployments/deploy_es.yml

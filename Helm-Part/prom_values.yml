@@ -1424,6 +1424,7 @@
         - job_name: 'consul-exporters'
           consul_sd_configs:
             - server: 'alinaops.com:8500'
+              scheme: http
               services:
                - consul
           relabel_configs:

@@ -1,0 +1,56 @@
+- name: install node exportersr
+  hosts: _node_exporter
+  remote_user: ubuntu
+  become: yes
+  tasks:
+  - name: create project directory node_exporter
+    file: state=directory path=/home/ubuntu/node_exporter
+
+  - name: Unarchive and download node exporter
+    ansible.builtin.unarchive:
+      src: https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+      dest: /home/ubuntu/node_exporter
+      remote_src: yes
+
+  - name: Copy node exporter
+    ansible.builtin.copy:
+      src: '/home/ubuntu/node_exporter/node_exporter-1.3.1.linux-amd64/'
+      dest: /usr/local/bin
+      remote_src: yes
+
+  - name: Remove old node exporter
+    file: path=/home/ubuntu/node_exporter state=absent
+
+  - name: add group node_exporter
+    ansible.builtin.group:
+      name: node_exporter
+      state: present
+      system: yes
+
+  - name: Add the user node_exporter
+    ansible.builtin.user:
+      name: node_exporter
+      shell: /bin/false
+      group: node_exporter
+      system: yes
+
+  - name: Copy node exporter service
+    ansible.builtin.copy:
+      src: /home/ubuntu/Ansible-Part/files/node_exporter.service
+      dest: /etc/systemd/system/
+      remote_src: no
+
+  - name: reload systemd
+    become: yes
+    command: systemctl daemon-reload
+
+  - name: Make surenode exporter is running
+    ansible.builtin.systemd:
+      state: started
+      name: node_exporter
+      daemon_reload: yes
+
+  - name: Enable service node exporter 
+    ansible.builtin.systemd:
+      name: node_exporter
+      enabled: yes

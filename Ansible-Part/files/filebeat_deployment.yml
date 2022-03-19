@@ -17,8 +17,7 @@ data:
             host: ${NODE_NAME}
             matchers:
             - logs_path:
-                logs_path: "/var/log/containers/*.log"
-                logs_path: "/usr/local/kandula/*.log"
+                logs_path: "/var/log/containers/"
         - drop_event:
             when:
               not:
@@ -42,7 +41,7 @@ data:
     setup.template.pattern: "filebeat-*"
     
     output.elasticsearch:
-      hosts: ['{{ ELK_IP }}:9200']
+      hosts: ['<you elk host private ip>:9200']
       index: "filebeat-k8s-%{[agent.version]}-%{+yyyy.MM.dd}"
 ---
 
