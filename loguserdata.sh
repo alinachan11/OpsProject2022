@@ -67,7 +67,8 @@ sudo service filebeat start
 
 echo 'network.host: 0.0.0.0' >> /etc/elasticsearch/elasticsearch.yml
 echo 'discovery.type: single-node' >> /etc/elasticsearch/elasticsearch.yml
-systemctl restart elasticsearch
-systemctl restart filebeat
+echo 'discovery.type: single-node' >> /etc/elasticsearch/elasticsearch.yml
+sudo systemctl restart elasticsearch
+sudo systemctl restart filebeat
 
 echo "INFO: userdata finished"
