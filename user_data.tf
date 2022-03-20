@@ -37,18 +37,19 @@ kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-auth-pat
 chmod 600 /home/ubuntu/${local_file.ansible_key.filename}
 mv /home/ubuntu/${local_file.ansible_key.filename} /home/ubuntu/.ssh/
 
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
 ansible-galaxy collection install kubernetes.core
 cd /home/ubuntu/Ansible-Part
 sleep 30s
 ansible-playbook main_pb.yml
 ansible-playbook jenkins_nodes_pb.yml
 ansible-playbook node_exporter_pb.yml
+ansible-playbook k8s_pb.yml
 
 cd /home/ubuntu
-
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
 
 aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
 
