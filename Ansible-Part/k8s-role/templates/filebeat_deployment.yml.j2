@@ -38,6 +38,9 @@ data:
     processors:
       - add_cloud_metadata:
       - add_host_metadata:
+
+    setup.kibana.protocol: "http"
+    setup.kibana.host:'{{ ELK_IP }}:5601'
     setup.template.name: "filebeat"
     setup.template.pattern: "filebeat-*"
     
