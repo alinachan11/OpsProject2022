@@ -6,6 +6,11 @@ echo "INFO: userdata started"
 # elasticsearch
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-7.10.2-amd64.deb
 dpkg -i elasticsearch-*.deb
+
+echo 'network.host: 0.0.0.0' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
+echo 'discovery.type: single-node' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
+echo 'http.port: 9200' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
+
 systemctl enable elasticsearch
 systemctl start elasticsearch
 
@@ -64,12 +69,5 @@ EOF
 sudo filebeat modules enable elasticsearch
 sudo filebeat setup
 sudo service filebeat start
-
-echo 'network.host: 0.0.0.0' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
-echo 'discovery.type: single-node' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
-echo 'http.port: 9200' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
-
-sudo systemctl restart elasticsearch
-sudo systemctl restart filebeat
 
 echo "INFO: userdata finished"

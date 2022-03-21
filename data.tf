@@ -23,7 +23,7 @@ data "aws_ami" "ubuntu" {
 data "template_file" "configs_for_ansible" {
   template = file("configs_for_ansible.ini")
   vars = {
-    ELK_IP             = module.ec2-instance.private_ip[0]
+    ELK_IP             = module.ec2-instance.public_ip[0]
     CONSUL_IP          = module.sd_module.consul_lb_dns
     slack_token        = var.slack_token
   }
