@@ -65,9 +65,10 @@ sudo filebeat modules enable elasticsearch
 sudo filebeat setup
 sudo service filebeat start
 
-echo 'network.host: 0.0.0.0' >> /etc/elasticsearch/elasticsearch.yml
-echo 'discovery.type: single-node' >> /etc/elasticsearch/elasticsearch.yml
-echo 'discovery.type: single-node' >> /etc/elasticsearch/elasticsearch.yml
+echo 'network.host: 0.0.0.0' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
+echo 'discovery.type: single-node' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
+echo 'http.port: 9200' | sudo tee -a /etc/elasticsearch/elasticsearch.yml
+
 sudo systemctl restart elasticsearch
 sudo systemctl restart filebeat
 
