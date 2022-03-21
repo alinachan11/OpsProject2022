@@ -5,8 +5,8 @@ gossip : "dURCVjRlK0xiRlczMDE5WUtQeElyZz09"
 consul_namespcae : "consul"
 my_consul_name : "myconsul"
 consul_helm_chart_url : "https://helm.releases.hashicorp.com"
-consul_chart_name : "hashicorp"
-my_consul_chart_name : "hashicorp/consul"
+consul_chart_name : "hashicorp/consul"
+my_consul_chart_name : "hashicorp"
 consul_values_path : "/home/ubuntu/Helm-Part/consul_values.yml"
 
 ##### for prom main ##############
