@@ -6,7 +6,7 @@
 - name: create filebeat yml
   template:
     src: /home/ubuntu/Ansible-Part/k8s-role/templates/filebeat_deployment.yml.j2
-    dest: "//home/ubuntu/Ansible-Part/deployments/filebeat_deployment.yml"
+    dest: "/home/ubuntu/Ansible-Part/deployments/filebeat_deployment.yml"
 
 - name: filebeat Deployment from file
   kubernetes.core.k8s:

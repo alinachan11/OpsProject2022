@@ -5,7 +5,16 @@ echo "starting destruction of deployments...."
 aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
 
 echo "starting destruction of filebeat...."
-kubectl -f delete /home/ubuntu/Ansible-Part/deployments/filebeat.yml
+kubectl delete -f /home/ubuntu/Ansible-Part/deployments/filebeat_deployment.yml
+
+echo "starting destruction of grafana_datasources...."
+kubectl delete -f /home/ubuntu/Ansible-Part/deployments/grafana_datasources.yml
+
+echo "starting destruction of grafana_dashboards...."
+kubectl delete -f /home/ubuntu/Ansible-Part/deployments/grafana_dashboards.yml
+
+echo "starting destruction of grafana_dashboards1...."
+kubectl delete -f /home/ubuntu/Ansible-Part/deployments/grafana_dashboards1.yml
 
 echo "starting destruction of consul...."
 helm delete myconsul -n consul
