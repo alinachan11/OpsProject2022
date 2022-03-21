@@ -17,8 +17,7 @@ data:
             host: ${NODE_NAME}
             matchers:
             - logs_path:
-                logs_path: "/var/log/containers/*.log"
-                logs_path: "/usr/local/kandula/*.log"
+                logs_path: "/var/log/containers/"
         - drop_event:
             when:
               not:
@@ -38,9 +37,6 @@ data:
     processors:
       - add_cloud_metadata:
       - add_host_metadata:
-
-    setup.kibana.protocol: "http"
-    setup.kibana.host:'{{ ELK_IP }}:5601'
     setup.template.name: "filebeat"
     setup.template.pattern: "filebeat-*"
     
