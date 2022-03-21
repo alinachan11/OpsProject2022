@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "custom-dashboards"
+  name: custom-dashboards
   namespace: monitoring                            # ConfigMap namespace (can be any namespace)
   labels:
     grafana_dashboard: "true"

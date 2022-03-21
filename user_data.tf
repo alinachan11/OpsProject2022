@@ -50,7 +50,7 @@ ansible-playbook node_exporter_pb.yml
 ansible-playbook k8s_pb.yml
 
 cd /home/ubuntu
-
+chmod +x /home/ubuntu/Helm-Part/destroy_most.sh
 aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
 
 

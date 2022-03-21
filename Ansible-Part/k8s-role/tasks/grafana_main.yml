@@ -23,12 +23,12 @@
     state: present
     src: /home/ubuntu/Ansible-Part/deployments/grafana_datasources.yml
 
-- name: deploy grafana dashboards yml
+- name: deploy grafana dashboards.yml
   kubernetes.core.k8s:
     state: present
     src: /home/ubuntu/Ansible-Part/deployments/grafana_dashboards.yml
 
-- name: deploy grafana dashboards yml
+- name: deploy grafana dashboards1.yml
   kubernetes.core.k8s:
     state: present
     src: /home/ubuntu/Ansible-Part/deployments/grafana_dashboards1.yml
