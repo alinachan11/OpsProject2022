@@ -2,14 +2,9 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": [
-        "ec2:DescribeInstances",
-        "ec2:StartInstances",
-        "ec2:StopInstances",
-        "ec2:TerminateInstances"
-      ],
       "Effect": "Allow",
-      "Resource": "arn:aws:ec2:819861602579:user/alinaops2"
+      "Action": "ec2:DescribeInstances",
+      "Resource": "*"
     }
   ]
 }
