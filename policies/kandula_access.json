@@ -9,7 +9,7 @@
         "ec2:TerminateInstances"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:ec2:819861602579:user/alinaops2"
+      "Resource": "*"
     }
   ]
 }

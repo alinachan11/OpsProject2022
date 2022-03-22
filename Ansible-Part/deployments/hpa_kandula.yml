@@ -1,0 +1,12 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+ name: hpa-kandula-deployment
+spec:
+ scaleTargetRef:
+   apiVersion: apps/v1
+   kind: Deployment
+   name: kandula-app
+ minReplicas: 1
+ maxReplicas: 10
+ targetCPUUtilizationPercentage: 50
