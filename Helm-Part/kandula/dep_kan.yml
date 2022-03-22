@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kandula-app
+  labels:
+    name: kandula-app
+    app: kandula
+  annotations:
+    kubernetes.io/change-cause: "First release of kandula app"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kandula-app
+  template:
+    metadata:
+      labels:
+        app: kandula-app
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '8000'
+    spec:
+      containers:
+      - name: kandula
+        image: alinachan11/opsschool-kandula-image:special
+        env:
+        - name: FLASK_ENV
+          value: "development"
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+          secretKeyRef:
+            name: kandula-secrets
+            key: aws_username
+            optional: false
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+          secretKeyRef:
+            name: kandula-secrets
+            key: aws_password
+            optional: false
+        - name: AWS_DEFAULT_REGION
+          value: "us-east-1"
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+          limits:
+            cpu: "200m"
+            memory: "200Mi"
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - kandula
+              topologyKey: kubernetes.io/hostname
+            weight: 100
