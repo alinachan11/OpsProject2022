@@ -105,7 +105,7 @@ resource "aws_iam_role" "kandula_role" {
 }
 
 resource "aws_iam_instance_profile" "assume_role_kandula" {                             
-  name  = "assume_role_profile"                         
+  name  = "kandula_assume_role_profile"                         
   role = "${aws_iam_role.kandula_role.name}"
 }
 
