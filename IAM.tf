@@ -104,9 +104,9 @@ resource "aws_iam_role" "kandula_role" {
   assume_role_policy  = "${file("policies/assumerolepolicy.json")}"
 }
 
-resource "aws_iam_instance_profile" "assume_role_profile" {                             
+resource "aws_iam_instance_profile" "assume_role_kandula" {                             
   name  = "assume_role_profile"                         
-  role = "${aws_iam_role.ansible_role.name}"
+  role = "${aws_iam_role.kandula_role.name}"
 }
 
 resource "aws_iam_policy" "kandula_role_access_policy" {
