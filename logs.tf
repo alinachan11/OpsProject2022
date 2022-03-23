@@ -17,6 +17,8 @@ module "ec2-instance" {
 
   tags = {
     Terraform   = "true"
+    task = "elk"
+    node_type = "ubuntu"
   }
 }
 
