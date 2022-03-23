@@ -26,6 +26,24 @@
    - name: consul role - for client
      include_role:
        name: consul-role
+
+- name: consul client - ELK
+  hosts: _elk
+  remote_user: ubuntu
+  become: yes
+  vars:
+    - server: false
+    - service_port: 5601
+    - service_name : 'Kibana-Service'
+    - service_tags : 'Kibana-Service'
+    - check_id : "tcp-{{ service_name }}"
+    - check_name : "tcp-{{ service_port }}"
+    - check_tcp : "localhost:{{ service_port }}"
+    - add_service : true
+  tasks:
+   - name: consul role - for client
+     include_role:
+       name: consul-role
   
 
 - name: consul users

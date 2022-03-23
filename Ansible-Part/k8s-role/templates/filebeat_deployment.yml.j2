@@ -18,10 +18,10 @@ data:
             matchers:
             - logs_path:
                 logs_path: "/var/log/containers/"
-        - drop_event:
-            when:
-              not:
-                has_fields: ['kubernetes.container.name']
+        #- drop_event:
+        #    when:
+        #      not:
+        #        has_fields: ['kubernetes.container.name']
         - drop_event:
             when:
               equals:
