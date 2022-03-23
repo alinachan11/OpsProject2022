@@ -7,7 +7,12 @@ terraform {
       version = "0.26.1"
     }
     aws = {
-      version = ">=3.13.0"
+      version = ">= 3.68.0"
+    }
+
+        kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = ">=2.7.1"
     }
 
     http = {
