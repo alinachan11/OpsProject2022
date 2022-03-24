@@ -1,0 +1,21 @@
+- name: connect to k8s
+  shell: aws eks --region=us-east-1 update-kubeconfig --name opsschool-eks-alina--final-project
+
+- name: Download the helm.
+  get_url: url=https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 dest=/home/ubuntu/get_helm.sh
+
+- name: Change permission on get_helm.sh file
+  file:
+    path: /home/ubuntu/get_helm.sh
+    state: file
+    mode: 0700
+
+- name: install helm
+  shell: /home/ubuntu/get_helm.sh
+
+- name: Create a monitoring namespace
+  kubernetes.core.k8s:
+    name: "{{ monitoring_namespcae }}"
+    api_version: v1
+    kind: Namespace
+    state: present

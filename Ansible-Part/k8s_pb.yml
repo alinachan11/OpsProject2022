@@ -3,6 +3,6 @@
   remote_user: ubuntu
   become: yes
   tasks:
-  - name: consul role - for server
+  - name: k8s role - for ansible server
     include_role:
       name: k8s-role

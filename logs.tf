@@ -12,13 +12,16 @@ module "ec2-instance" {
   key_name                    = var.ssh_key_name
   subnet_id                   = tolist(module.vpc_module.private_subnets_id)[1]
   vpc_security_group_ids      = [aws_security_group.elk-sg.id,aws_security_group.ssh-sg.id,aws_security_group.default.id,aws_security_group.consul-sg.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   user_data = file("./loguserdata.sh")
 
   tags = {
     Terraform   = "true"
     task = "elk"
     node_type = "ubuntu"
+    consul_server = "false"
+    consul_type ="client"
+    task2 = "node_exporter"
   }
 }
 

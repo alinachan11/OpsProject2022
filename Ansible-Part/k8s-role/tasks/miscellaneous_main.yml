@@ -1,0 +1,20 @@
+- name: filebeat Deployment from file
+  kubernetes.core.k8s:
+    state: present
+    src: /home/ubuntu/Ansible-Part/deployments/filebeat_deployment.yml
+
+- name: Download metrics-server manifest to the cluster.
+  ansible.builtin.get_url:
+    url: https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+    dest: /home/ubuntu/Ansible-Part/deployments/metrics_server.yaml
+    mode: '0664'
+
+- name: Apply metrics-server manifest to the cluster.
+  kubernetes.core.k8s:
+    state: present
+    src: /home/ubuntu/Ansible-Part/deployments/metrics_server.yaml
+
+- name: kandula hpa Deployment from file
+  kubernetes.core.k8s:
+    state: present
+    src: /home/ubuntu/Ansible-Part/deployments/hpa_kandula.yml

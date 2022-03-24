@@ -472,7 +472,21 @@ datasources:
 ## Configure notifiers
 ## ref: http://docs.grafana.org/administration/provisioning/#alert-notification-channels
 ##
-notifiers: {}
+notifiers:
+  - name: slack-notification-channel1
+    type: slack
+    uid: notifier1
+    is_default: true
+    send_reminder: true
+    frequency: 1h
+    disable_resolve_message: false
+    # See `Supported Settings` section for settings supported for each
+    # alert notification type.
+    settings:
+      recipient: '#notifications'
+      uploadImage: true
+      url: https://slack.com # legacy setting since Grafana v7.2 (stored non-encrypted)
+      Username: 'kandula'
 #  notifiers.yaml:
 #    notifiers:
 #    - name: email-notifier

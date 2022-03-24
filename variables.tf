@@ -21,3 +21,8 @@ variable "private_zone_name" {
   type = string
   default = "alinaops.com"
 }
+
+variable "slack_hook" {
+  type        = string
+  description = "The hook address of slack."
+}
