@@ -51,3 +51,20 @@ output "kubeconfig" {
     value = module.EKS_Module.kubeconfig
 }
 
+##################### Extra output ##############################
+
+output "kandula_role_id" {
+    value = aws_iam_role.kandula_role.id
+}
+
+output "kandula_role_name" {
+    value = aws_iam_role.kandula_role.name
+}
+
+output "kandula_role_arn" {
+    value = aws_iam_role.kandula_role.arn
+}
+
+output "kandula_role_unique_id" {
+    value = aws_iam_role.kandula_role.unique_id
+}
