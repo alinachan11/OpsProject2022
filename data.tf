@@ -25,7 +25,7 @@ data "template_file" "configs_for_ansible" {
   vars = {
     ELK_IP             = module.ec2-instance.private_ip[0]
     CONSUL_IP          = module.sd_module.consul_lb_dns
-    slack_token        = var.slack_token
+    SLACK_HOOK        = base64encode(var.slack_hook)
   }
 }
 
