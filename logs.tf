@@ -10,6 +10,7 @@ module "ec2-instance" {
   instance_type               = "t3.medium"
   ami                         = data.aws_ami.ami.id
   key_name                    = var.ssh_key_name
+  iam_instance_profile        = "${aws_iam_instance_profile.consul-join.name}"
   subnet_id                   = tolist(module.vpc_module.private_subnets_id)[1]
   vpc_security_group_ids      = [aws_security_group.elk-sg.id,aws_security_group.ssh-sg.id,aws_security_group.default.id,aws_security_group.consul-sg.id]
   associate_public_ip_address = false
