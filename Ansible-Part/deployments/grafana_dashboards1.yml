@@ -30,7 +30,7 @@ data:
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 3,
+    "id": 5,
     "links": [],
     "liveNow": false,
     "panels": [
@@ -363,7 +363,35 @@ data:
         "fieldConfig": {
           "defaults": {
             "color": {
-              "mode": "thresholds"
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
             },
             "mappings": [],
             "thresholds": {
@@ -406,19 +434,14 @@ data:
         },
         "id": 3,
         "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
           },
-          "text": {},
-          "textMode": "auto"
+          "tooltip": {
+            "mode": "single"
+          }
         },
         "pluginVersion": "8.3.6",
         "targets": [
@@ -435,7 +458,7 @@ data:
           }
         ],
         "title": "5Min increase in visitors On All Pages",
-        "type": "stat"
+        "type": "timeseries"
       }
     ],
     "refresh": "",
@@ -451,8 +474,9 @@ data:
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Kandula Visitors",
-    "uid": "r_0qasEnz",
-    "version": 6,
+    "title": "Kandula Visitors1",
+    "uid": "r_0qasEnz1",
+    "version": 2,
     "weekStart": ""
     }
+   

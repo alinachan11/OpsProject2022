@@ -9,23 +9,20 @@
 - debug:
     var: SLACK_HOOK
 
-- name: make my grafana secrets
-  kubernetes.core.k8s:
-    state: present
-    definition: 
-      apiVersion: v1
-      kind: Secret
-      type: Opaque             
-      metadata:
-        name: mygrafanasecret
-        namespace: "{{ monitoring_namespcae }}"     
-      data:
-        slack_webhook: "{{ SLACK_HOOK }}"
+- name: decode and save slack hook
+  shell: 'echo {{ SLACK_HOOK }} | base64 --decode'
+  register: slack_hook
 
-- name: create grafana datasources yml
+- set_fact:
+    SLACK_WEBHOOK_URL: "{{ slack_hook.stdout }}"
+- debug:
+    var: SLACK_WEBHOOK_URL
+
+
+- name: create grafana values yml
   template:
-    src: /home/ubuntu/Ansible-Part/k8s-role/templates/grafana_datasources.yml.j2
-    dest: "/home/ubuntu/Ansible-Part/deployments/grafana_datasources1.yml"
+    src: /home/ubuntu/Ansible-Part/k8s-role/templates/grafana_values.yml.j2
+    dest: "{{ grafana_values_path }}"
 
 - name: deploy grafana datasources yml
   kubernetes.core.k8s:

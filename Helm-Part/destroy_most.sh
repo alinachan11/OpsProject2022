@@ -25,8 +25,8 @@ helm delete mygrafana -n monitoring
 echo "starting destruction of filebeat...."
 kubectl delete -f /home/ubuntu/Ansible-Part/deployments/filebeat_deployment.yml
 
-echo "starting destruction of fmetrics-server...."
-kubectl delete -f /home/ubuntu/Ansible-Part/deployments/metrics-server.yaml
+echo "starting destruction of metrics-server...."
+kubectl delete -f /home/ubuntu/Ansible-Part/deployments/metrics_server.yaml
 
 echo "starting destruction of hpa kandula...."
 kubectl delete -f /home/ubuntu/Ansible-Part/deployments/hpa_kandula.yml
