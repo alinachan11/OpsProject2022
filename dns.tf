@@ -12,7 +12,6 @@ resource "aws_route53_record" "myConsulRecord" {
   zone_id = aws_route53_zone.private.zone_id
   name    = "consul.${var.private_zone_name}"
   type    = "A" 
-  ttl = "300"
 
   alias {
       name                   = module.sd_module.consul_lb_dns
@@ -25,7 +24,6 @@ resource "aws_route53_record" "myJenkinsRecord" {
   zone_id = aws_route53_zone.private.zone_id
   name    = "Jenkins.${var.private_zone_name}"
   type    = "A" 
-  ttl = "300"
   alias {
       name                   = module.jenkins_module.jenkins_lb_dns
       zone_id                = module.jenkins_module.jenkins_lb_zone_id
@@ -36,7 +34,6 @@ resource "aws_route53_record" "myELKRecord" {
   zone_id = aws_route53_zone.private.zone_id
   name    = "ELK.${var.private_zone_name}"
   type    = "A" 
-  ttl = "300"
 
   alias {
       name                   = aws_lb.elk_alb.dns_name
