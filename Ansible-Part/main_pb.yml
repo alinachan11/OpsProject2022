@@ -33,9 +33,9 @@
   become: yes
   vars:
     - server: false
-    - service_port: 5601
-    - service_name : 'Kibana-Service'
-    - service_tags : 'Kibana-Service'
+    - service_port: 9200
+    - service_name : 'ELK-Service'
+    - service_tags : 'ELK-Service'
     - check_id : "tcp-{{ service_name }}"
     - check_name : "tcp-{{ service_port }}"
     - check_tcp : "localhost:{{ service_port }}"
