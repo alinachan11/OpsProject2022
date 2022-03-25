@@ -472,7 +472,8 @@ datasources:
 ## Configure notifiers
 ## ref: http://docs.grafana.org/administration/provisioning/#alert-notification-channels
 ##
-notifiers:
+notifiers.yaml:
+  notifiers:
   - name: slack-notification-channel1
     type: slack
     uid: notifier1
@@ -480,8 +481,8 @@ notifiers:
     send_reminder: true
     frequency: 1h
     disable_resolve_message: false
-    # See `Supported Settings` section for settings supported for each
-    # alert notification type.
+  # See `Supported Settings` section for settings supported for each
+  # alert notification type.
     settings:
       recipient: '#notifications'
       uploadImage: true

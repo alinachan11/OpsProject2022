@@ -5,7 +5,7 @@
     repo_url: "{{ grafana_helm_chart_url }}"
 
 - set_fact:
-    ELK_IP: "{{ lookup('ini', 'SLACK_HOOK type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
+    SLACK_HOOK: "{{ lookup('ini', 'SLACK_HOOK type=properties file=/home/ubuntu/configs_for_ansible.ini') }}"
 - debug:
     var: SLACK_HOOK
 
