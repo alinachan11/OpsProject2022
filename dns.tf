@@ -49,43 +49,43 @@ provider "acme" {
   server_url = var.acme_server_url
 }
 
-resource "tls_private_key" "registration" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
+#resource "tls_private_key" "registration" {
+#  algorithm = "RSA"
+#  rsa_bits  = 4096
+#}
 
-resource "aws_acm_certificate" "my_cert" {
-  domain_name       = var.private_zone_name
-  validation_method = "DNS"
+#resource "aws_acm_certificate" "my_cert" {
+#  domain_name       = var.private_zone_name
+#  validation_method = "DNS"
 
-  tags = {
-    Environment = "test"
-    Owner = "alina"
-  }
+ # tags = {
+ #   Environment = "test"
+ #   Owner = "alina"
+ # }
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
+  #lifecycle {
+  #  create_before_destroy = true
+  #}
+#}
 
-resource "aws_route53_record" "validation" {
-  for_each = {
-    for dvo in aws_acm_certificate.my_cert.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
+#resource "aws_route53_record" "validation" {
+#  for_each = {
+#    for dvo in aws_acm_certificate.my_cert.domain_validation_options : dvo.domain_name => {
+#      name   = dvo.resource_record_name
+#      record = dvo.resource_record_value
+#      type   = dvo.resource_record_type
+#    }
+#  }
 
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 60
-  type            = each.value.type
-  zone_id         = aws_route53_zone.private.zone_id
-}
+#  allow_overwrite = true
+#  name            = each.value.name
+#  records         = [each.value.record]
+#  ttl             = 60
+#  type            = each.value.type
+#  zone_id         = aws_route53_zone.private.zone_id
+#}
 
-resource "aws_acm_certificate_validation" "certificate_validation" {
-  certificate_arn         = aws_acm_certificate.my_cert.arn
-  validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
-}
+#resource "aws_acm_certificate_validation" "certificate_validation" {
+#  certificate_arn         = aws_acm_certificate.my_cert.arn
+#  validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
+#}
