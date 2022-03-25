@@ -36,7 +36,7 @@ variable "acme_server_url" {
 variable "dns_challenge_provider" {
   type        = string
   description = "the dns provider"
-  default = "Route 53"
+  default = "route53"
 }
 
 

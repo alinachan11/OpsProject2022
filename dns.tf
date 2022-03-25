@@ -59,19 +59,19 @@ resource "acme_registration" "registration" {
   email_address   = var.email_address
 }
 
-resource "acme_certificate" "certificates" {
-  for_each = { for certificate in var.certificates : index(var.certificates, certificate) => certificate }
+resource "tls_cert_request" "req" {
+  key_algorithm   = "RSA"
+  private_key_pem = "${tls_private_key.registration.private_key_pem}"
+  dns_names       = aws_route53_zone.private.name_servers
 
-  common_name               = each.value.common_name
-  subject_alternative_names = each.value.subject_alternative_names
-  key_type                  = each.value.key_type
-  must_staple               = each.value.must_staple
-  min_days_remaining        = each.value.min_days_remaining
-  certificate_p12_password  = each.value.certificate_p12_password
-  account_key_pem              = acme_registration.registration.account_key_pem
-  recursive_nameservers        = var.recursive_nameservers
-  disable_complete_propagation = var.disable_complete_propagation
-  pre_check_delay              = var.pre_check_delay
+  subject {
+    common_name = var.private_zone_name
+  }
+}
+
+resource "acme_certificate" "certificate" {
+  account_key_pem         = "${acme_registration.registration.account_key_pem}"
+  certificate_request_pem = "${tls_cert_request.req.cert_request_pem}"
 
   dns_challenge {
       provider = var.dns_challenge_provider
