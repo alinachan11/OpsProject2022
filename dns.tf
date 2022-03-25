@@ -85,8 +85,8 @@ resource "acme_certificate" "certificate" {
 }
 
 resource "aws_acm_certificate" "cert" {
-  private_key        =  acme_certificate.certificates[0].private_key_pem   
-  certificate_body   =  acme_certificate.certificates[0].certificate_pem 
-  certificate_chain  =  acme_certificate.certificates[0].issuer_pem
-  depends_on         =  [acme_certificate.certificates,tls_private_key.registration,acme_registration.registration]
+  private_key        =  acme_certificate.certificate.private_key_pem   
+  certificate_body   =  acme_certificate.certificate.certificate_pem 
+  certificate_chain  =  acme_certificate.certificate.issuer_pem
+  depends_on         =  [acme_certificate.certificate,tls_private_key.registration,acme_registration.registration]
 }
