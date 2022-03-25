@@ -112,7 +112,7 @@ resource "aws_lb_listener" "elk" {
   load_balancer_arn = aws_lb.elk_alb.arn
   port              = 5601
   protocol          = "HTTP"
-
+  certificate_arn = aws_acm_certificate_validation.certificate_validation.certificate_arn
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.elk.arn

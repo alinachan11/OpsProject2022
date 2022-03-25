@@ -54,39 +54,38 @@ resource "tls_private_key" "registration" {
   rsa_bits  = 4096
 }
 
-resource "acme_registration" "registration" {
-  account_key_pem = tls_private_key.registration.private_key_pem
-  email_address   = var.email_address
-}
+resource "aws_acm_certificate" "my_cert" {
+  domain_name       = var.private_zone_name
+  validation_method = "DNS"
 
-resource "tls_cert_request" "req" {
-  key_algorithm   = "RSA"
-  private_key_pem = "${tls_private_key.registration.private_key_pem}"
-  dns_names       = aws_route53_zone.private.name_servers
+  tags = {
+    Environment = "test"
+    Owner = "alina"
+  }
 
-  subject {
-    common_name = var.private_zone_name
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
-resource "acme_certificate" "certificate" {
-  account_key_pem         = "${acme_registration.registration.account_key_pem}"
-  certificate_request_pem = "${tls_cert_request.req.cert_request_pem}"
-
-  dns_challenge {
-      provider = var.dns_challenge_provider
-      config   = {
-        AWS_ACCESS_KEY_ID     = var.aws_aki
-        AWS_SECRET_ACCESS_KEY = var.aws_sak
-        AWS_DEFAULT_REGION    = var.aws_region
-        AWS_HOSTED_ZONE_ID    = aws_route53_zone.private.id
-      }
+resource "aws_route53_record" "validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.my_cert.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
     }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = data.aws_route53_zone.private.zone_id
 }
 
-resource "aws_acm_certificate" "cert" {
-  private_key        =  acme_certificate.certificate.private_key_pem   
-  certificate_body   =  acme_certificate.certificate.certificate_pem 
-  certificate_chain  =  acme_certificate.certificate.issuer_pem
-  depends_on         =  [acme_certificate.certificate,tls_private_key.registration,acme_registration.registration]
+resource "aws_acm_certificate_validation" "certificate_validation" {
+  certificate_arn         = aws_acm_certificate.my_cert.arn
+  validation_record_fqdns = [for record in aws_route53_record.validation : record.fqdn]
 }
