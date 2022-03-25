@@ -76,8 +76,8 @@ resource "acme_certificate" "certificate" {
   dns_challenge {
       provider = var.dns_challenge_provider
       config   = {
-        AWS_ACCESS_KEY_ID     = env.AWS_ACCESS_KEY_ID
-        AWS_SECRET_ACCESS_KEY = env.AWS_SECRET_ACCESS_KEY
+        AWS_ACCESS_KEY_ID     = var.aws_aki
+        AWS_SECRET_ACCESS_KEY = var.aws_sak
         AWS_DEFAULT_REGION    = var.aws_region
         AWS_HOSTED_ZONE_ID    = aws_route53_zone.private.id
       }
