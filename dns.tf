@@ -57,14 +57,6 @@ resource "tls_private_key" "registration" {
 resource "acme_registration" "registration" {
   account_key_pem = tls_private_key.registration.private_key_pem
   email_address   = var.email_address
-
-  dynamic "external_account_binding" {
-    for_each = var.external_account_binding != null ? [null] : []
-    content {
-      key_id      = var.external_account_binding.key_id
-      hmac_base64 = var.external_account_binding.hmac_base64
-    }
-  }
 }
 
 resource "acme_certificate" "certificates" {
