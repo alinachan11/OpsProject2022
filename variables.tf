@@ -39,9 +39,6 @@ variable "dns_challenge_provider" {
   default = "Route 53"
 }
 
-variable "external_account_binding" {
-  
-}
 
 
 
