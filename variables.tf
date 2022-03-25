@@ -39,11 +39,11 @@ variable "dns_challenge_provider" {
   default = "route53"
 }
 
-variable "AWS_ACCESS_KEY_ID" {
+variable "aws_aki" {
     description = "...."
 }
 
-variable "AWS_SECRET_ACCESS_KEY" {
+variable "aws_sak" {
     description = "....."
 }
 
