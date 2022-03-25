@@ -1278,7 +1278,7 @@ client:
 # https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/#configure-stub-domain-and-upstream-dns-servers
 dns:
   # @type: boolean
-  enabled: "-"
+  enabled: "true"
 
   # If true, services using Consul Connect will use Consul DNS
   # for default DNS resolution. The DNS lookups fall back to the nameserver IPs
