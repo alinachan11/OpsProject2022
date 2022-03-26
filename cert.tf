@@ -92,7 +92,7 @@ resource "tls_locally_signed_cert" "cert" {
   ca_cert_pem        = "${var.ca_cert_pem}"
 
   validity_period_hours = "${var.validity_period_hours}"
-  allowed_uses          = ["${var.allowed_uses}"]
+  allowed_uses          = "${var.allowed_uses}"
 }
 
 resource "local_file" "cert_public_key" {
