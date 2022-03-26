@@ -235,7 +235,7 @@ resource "aws_security_group" "common-sg" {
  }
   ingress {
    from_port   = 8500
-   to_port     = 8500
+   to_port     = 8502
    protocol    = "tcp"
    cidr_blocks = ["0.0.0.0/0"]
  }
@@ -262,6 +262,13 @@ resource "aws_security_group" "common-sg" {
    ingress {
    from_port   = 9100
    to_port     = 9100
+   protocol    = "tcp"
+   cidr_blocks = ["0.0.0.0/0"]
+ }
+
+  ingress {
+   from_port   = 53
+   to_port     = 53
    protocol    = "tcp"
    cidr_blocks = ["0.0.0.0/0"]
  }
