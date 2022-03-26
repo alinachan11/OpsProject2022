@@ -36,7 +36,7 @@ variable "ca_private_key_pem" {
 
 variable "allowed_uses" {
   description = "List of keywords from RFC5280 describing a use that is permitted for the issued certificate. For more info and the list of keywords, see https://www.terraform.io/docs/providers/tls/r/self_signed_cert.html#allowed_uses."
-  type        = "list"
+
 
   default = [
     "key_encipherment",
