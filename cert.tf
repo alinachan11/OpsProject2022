@@ -21,22 +21,17 @@ variable "organization_name" {
 
 variable "common_name" {
   description = "The common name to use in the subject of the certificate (e.g. acme.co cert)."
-  value = "acme.co"
-}
-
-variable "dns_names" {
-  description = "List of DNS names for which the certificate will be valid (e.g. foo.example.com)."
-  type        = "list"
+  default = "acme.co"
 }
 
 variable "ca_key_algorithm" {
   description = "The name of Algorithm used for CA key"
-  value = "ECDSA"
+  default = "ECDSA"
 }
 
 variable "ca_private_key_pem" {
   description = "Private key pem of CA"
-  value ="cert_prk.pem"
+  default ="cert_prk.pem"
 }
 
 variable "allowed_uses" {
@@ -52,17 +47,17 @@ variable "allowed_uses" {
 
 variable "ca_cert_pem" {
   description = "Cert PEM of CA"
-  value ="cert_prk.pem"
+  default ="cert_prk.pem"
 }
 
 variable "cert_public_key_path" {
   description = "Path to store the certificate public key"
-  value = "cert_puk.pem"
+  default = "cert_puk.pem"
 }
 
 variable "cert_private_key_path" {
   description = "Path to store the private key of certificate"
-  value ="cert_prk.pem"
+  default ="cert_prk.pem"
 }
 
 ############################ resources ###################################
