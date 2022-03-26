@@ -11,7 +11,7 @@ variable "private_key_rsa_bits" {
 
 variable "validity_period_hours" {
   description = "The number of hours after initial issuing that the certificate will become invalid."
-  default     = 8760
+  default     = 43800
 }
 
 variable "organization_name" {
@@ -21,7 +21,7 @@ variable "organization_name" {
 
 variable "common_name" {
   description = "The common name to use in the subject of the certificate (e.g. acme.co cert)."
-  default = "acme.co"
+  default = "alinaops.co"
 }
 
 variable "ca_key_algorithm" {
@@ -42,6 +42,8 @@ variable "allowed_uses" {
     "key_encipherment",
     "digital_signature",
     "server_auth",
+    "client_auth",
+    "cert_signing",
   ]
 }
 
@@ -72,9 +74,29 @@ resource "local_file" "cert_file" {
   filename = "${var.cert_private_key_path}"
 }
 
-resource "tls_cert_request" "cert" {
-  key_algorithm   = "${tls_private_key.cert.algorithm}"
+resource "tls_self_signed_cert" "ca" {
+  key_algorithm = "${tls_private_key.cert.algorithm}"
   private_key_pem = "${tls_private_key.cert.private_key_pem}"
+
+  subject {
+    common_name = "${var.common_name}"
+    organization = "${var.organization_name}"
+  }
+
+  validity_period_hours = 43800
+  is_ca_certificate = true
+
+  allowed_uses = "${var.allowed_uses}"
+}
+
+resource "tls_private_key" "registry" {
+  algorithm = "ECDSA"
+  ecdsa_curve = "P384"
+}
+
+resource "tls_cert_request" "cert" {
+  key_algorithm   = "${tls_private_key.registry.algorithm}"
+  private_key_pem = "${tls_private_key.registry.private_key_pem}"
 
   dns_names = [module.sd_module.consul_lb_dns,module.jenkins_module.jenkins_lb_dns,aws_lb.elk_alb.dns_name]
 
@@ -85,11 +107,11 @@ resource "tls_cert_request" "cert" {
 }
 
 resource "tls_locally_signed_cert" "cert" {
-  cert_request_pem = "${tls_cert_request.cert.cert_request_pem}"
+  cert_request_pem = "${tls_cert_request.registry.cert_request_pem}"
 
-  ca_key_algorithm   = "${var.ca_key_algorithm}"
-  ca_private_key_pem = "${var.ca_private_key_pem}"
-  ca_cert_pem        = "${var.ca_cert_pem}"
+  ca_key_algorithm   = "${tls_private_key.cert.algorithm}"
+  ca_private_key_pem = "${tls_private_key.cert.private_key_pem}"
+  ca_cert_pem        = "${tls_self_signed_cert.ca.cert_pem}"
 
   validity_period_hours = "${var.validity_period_hours}"
   allowed_uses          = "${var.allowed_uses}"
