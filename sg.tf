@@ -240,6 +240,14 @@ resource "aws_security_group" "common-sg" {
    cidr_blocks = ["0.0.0.0/0"]
  }
 
+  }
+  ingress {
+   from_port   = 8600
+   to_port     = 8600
+   protocol    = "tcp"
+   cidr_blocks = ["0.0.0.0/0"]
+ }
+
    ingress {
    from_port   = 9100
    to_port     = 9100
