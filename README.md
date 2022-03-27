@@ -14,11 +14,18 @@ EKS module:  [a link](https://github.com/alinachan11/terraform-alinaops-my-EKS-M
 start a new run based on last succefull build.
 
 2. In case we want to ssh the machines we need the ssh key which is kept inside s3 bucket - alina-bucket-for-opsproject. we can download from there.
+    (I have created a user with only permissions to S3)
 
 3. While jenkins comes with most needed things we still need to make a few changes:
-    a.
-    b.
-    c.
+    a. we need to update the ssh credensials with the new pem file content.
+    b. we need to update the ip address of the 2 jenkins nodes with the new ip's(Inside the output of terraform cloud)
+    c. we need to update inside of gitapp the address of Homepage and webhook with the jenkins-lb address(also inside terraform cloud output or from consul)
+    
+4. we can access the ansible-server to get the grafana password for admin user:
+   kubectl get secret mygrafana -n monitoring -o jsonpath='{.data.admin-password}' | base64 --decode -
+   
+5. The addresses of all load-balancers are inside consul - so no need to get them.
 
 
-# Usefull outputs:
+# Usefull Things:
+1. inside ansible-server in the folder Helm-Part we have a script which destroyes most of active k8s deployments destroy_most.sh
