@@ -15,7 +15,7 @@ output "consul_lb_address" {
 }
 
 output "elk_lb_address" {
-    value = aws_lb.elk_alb.dns_name
+    value = aws_lb.kibana.dns_name
 }
 output "jenkins_nodes_pip_address" {
     value = module.jenkins_module.jenkins_nodes_private_addresses
