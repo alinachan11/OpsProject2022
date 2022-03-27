@@ -26,6 +26,13 @@ start a new run based on last succefull build.
    
 5. The addresses of all load-balancers are inside consul - so no need to get them.
 
+6. for now grafana comes with 2 dashboards only - those dashboards are read only and cannot be changed.
+
 
 # Usefull Things:
 1. inside ansible-server in the folder Helm-Part we have a script which destroyes most of active k8s deployments destroy_most.sh [a link](https://github.com/alinachan11/OpsProject2022/blob/main/Helm-Part/destroy_most.sh)
+2. inside ansible-server in the folder Helm-Part we have a script which creates some usefull aliases for k8s alias_for_k8s.sh [a link](https://github.com/alinachan11/OpsProject2022/blob/main/Helm-Part/alias_for_k8s.sh)
+3. incase we want to run some parts of ansible again we can do it with ssh to ansible server and from there run the needed playbooks from Ansible-Part folder.
+
+
+
