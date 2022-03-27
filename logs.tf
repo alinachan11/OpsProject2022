@@ -160,7 +160,7 @@ resource "aws_lb_listener" "kibana" {
   #certificate_arn = aws_acm_certificate_validation.certificate_validation.certificate_arn
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.elk.arn
+    target_group_arn = aws_lb_target_group.kibana.arn
   }
 }
 
