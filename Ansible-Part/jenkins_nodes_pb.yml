@@ -1,6 +1,5 @@
--
 ---
-- name: taks for jenkins nodes
+- name: tasks for jenkins nodes
   hosts: _jenkins_node
   remote_user: ec2_user
   become: yes
@@ -12,6 +11,9 @@
     with_items:
       - python
       - unzip
+      - pip
+      - virtualenv
+      - setuptools
   - name: Download the awscli bundle.
     get_url: url=https://s3.amazonaws.com/aws-cli/awscli-bundle.zip dest=/tmp/awscli-bundle.zip
     register: aws_cli_download_bundle
