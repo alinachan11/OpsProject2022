@@ -27,5 +27,9 @@
       creates: /usr/bin/aws
     when: aws_cli_unarchive_installer.changed
 
-  - name: run trivy docker
-    shell: docker run --rm -v trivy-cache:/root/.cache/ -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest
+  - name: install trivy 
+    shell: sudo rpm -ivh https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.rpm
+
+  - name: Install bottle python package
+    pip:
+      name: pytest
