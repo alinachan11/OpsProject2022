@@ -1,6 +1,5 @@
--
 ---
-- name: taks for jenkins nodes
+- name: tasks for jenkins nodes
   hosts: _jenkins_node
   remote_user: ec2_user
   become: yes
@@ -12,6 +11,9 @@
     with_items:
       - python
       - unzip
+      - pip
+      - virtualenv
+      - setuptools
   - name: Download the awscli bundle.
     get_url: url=https://s3.amazonaws.com/aws-cli/awscli-bundle.zip dest=/tmp/awscli-bundle.zip
     register: aws_cli_download_bundle
@@ -27,5 +29,9 @@
       creates: /usr/bin/aws
     when: aws_cli_unarchive_installer.changed
 
-  - name: run trivy docker
-    shell: docker run --rm -v trivy-cache:/root/.cache/ -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest
+  - name: install trivy 
+    shell: sudo rpm -ivh https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.rpm
+
+  - name: Install pytest python package
+    pip:
+      name: pytest

@@ -140,3 +140,49 @@ resource "aws_lb_target_group_attachment" "elk" {
   target_id        = module.ec2-instance.id[0]
   port             = 9200
 }
+
+resource "aws_lb" "kibana" {
+  name               = "kibana-alb"
+  internal           = false
+  load_balancer_type = "application"
+  subnets            =  module.vpc_module.public_subnets_id
+  security_groups    = [aws_security_group.elk-sg.id,aws_security_group.ssh-sg.id,aws_security_group.default.id,aws_security_group.consul-sg.id]
+
+  tags = {
+    "Name" = "elk-alb-${module.vpc_module.vpc_id}"
+  }
+}
+
+resource "aws_lb_listener" "kibana" {
+  load_balancer_arn = aws_lb.kibana.arn
+  port              = 5601
+  protocol          = "HTTP"
+  #certificate_arn = aws_acm_certificate_validation.certificate_validation.certificate_arn
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.elk.arn
+  }
+}
+
+resource "aws_lb_target_group" "kibana" {
+  name     = "kibana-target-group"
+  port     = 5601
+  protocol = "HTTP"
+  vpc_id   = module.vpc_module.vpc_id
+
+  health_check {
+    enabled = true
+    path    = "/"
+  }
+
+  tags = {
+    "Name" = "kibana_target_group_${module.vpc_module.vpc_id}"
+  }
+}
+
+resource "aws_lb_target_group_attachment" "kibana" {
+  target_group_arn = aws_lb_target_group.kibana.id
+  target_id        = module.ec2-instance.id[0]
+  port             = 5601
+}
+
