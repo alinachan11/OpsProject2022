@@ -110,7 +110,7 @@ resource "aws_lb" "elk_alb" {
 
 resource "aws_lb_listener" "elk" {
   load_balancer_arn = aws_lb.elk_alb.arn
-  port              = 5601
+  port              = 9200
   protocol          = "HTTP"
   #certificate_arn = aws_acm_certificate_validation.certificate_validation.certificate_arn
   default_action {
@@ -121,7 +121,7 @@ resource "aws_lb_listener" "elk" {
 
 resource "aws_lb_target_group" "elk" {
   name     = "elk-target-group"
-  port     = 5601
+  port     = 9200
   protocol = "HTTP"
   vpc_id   = module.vpc_module.vpc_id
 
@@ -138,5 +138,5 @@ resource "aws_lb_target_group" "elk" {
 resource "aws_lb_target_group_attachment" "elk" {
   target_group_arn = aws_lb_target_group.elk.id
   target_id        = module.ec2-instance.id[0]
-  port             = 5601
+  port             = 9200
 }
