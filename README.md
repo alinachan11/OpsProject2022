@@ -28,4 +28,4 @@ start a new run based on last succefull build.
 
 
 # Usefull Things:
-1. inside ansible-server in the folder Helm-Part we have a script which destroyes most of active k8s deployments destroy_most.sh
+1. inside ansible-server in the folder Helm-Part we have a script which destroyes most of active k8s deployments destroy_most.sh [a link](https://github.com/alinachan11/OpsProject2022/blob/main/Helm-Part/destroy_most.sh)
