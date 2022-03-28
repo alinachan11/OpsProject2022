@@ -38,7 +38,7 @@ resource "aws_iam_policy" "consul-join" {
 # Attach the policy
 resource "aws_iam_policy_attachment" "consul-join" {
   name       = "opsschool-consul-join"
-  roles      = [aws_iam_role.consul-join.name]
+  roles      = [aws_iam_role.consul-join.name,aws_iam_role.eks-control.name]
   policy_arn = aws_iam_policy.consul-join.arn
 }
 
