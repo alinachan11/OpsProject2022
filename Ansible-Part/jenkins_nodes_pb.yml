@@ -1,7 +1,7 @@
 ---
 - name: tasks for jenkins nodes
   hosts: _jenkins_node
-  remote_user: ec2_user
+  remote_user: ec2-user
   become: yes
   vars:
     - server: true
